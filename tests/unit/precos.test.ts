@@ -31,6 +31,13 @@ describe('preços conferidos (05/10/2026)', () => {
     expect(festa.items.join(' | ')).toMatch(/2 entradas cortesia/)
   })
 
+  it('"comida e bebida para N" é a quantidade de refris do próprio pacote', () => {
+    for (const p of PACKAGES) {
+      const refris = p.items.map((it) => /(\d+) refris/.exec(it)?.[1]).find(Boolean)
+      expect(Number(refris), `${p.id}: ${p.items.join(' | ')}`).toBe(p.foodFor)
+    }
+  })
+
   it('pista avulsa bate com o Eleven Tickets', () => {
     expect(LANE_PRICES).toEqual({ semana: 79, sexta: 99, sabado: 129 })
     expect(LANE_FEE_PCT).toBe(10)

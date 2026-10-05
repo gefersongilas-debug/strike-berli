@@ -24,6 +24,11 @@ export interface Package {
   items: string[]
   /** Preço cheio → preço do pacote, por dia. */
   prices: Record<DayKey, { from: number; to: number }>
+  /**
+   * Para quantas pessoas rendem a comida e a bebida. As fontes não dizem; o número
+   * sai da quantidade de refris do próprio pacote (o teste confere).
+   */
+  foodFor: number
   highlight?: boolean
   /** Selo do card. Só use texto que seja fato (não "mais vendido" sem dado). */
   badge?: string
@@ -40,6 +45,7 @@ export const PACKAGES: Package[] = [
       sexta: { from: 218, to: 189 },
       sabado: { from: 248, to: 209 },
     },
+    foodFor: 4,
   },
   {
     id: 'pista-2h',
@@ -51,6 +57,7 @@ export const PACKAGES: Package[] = [
       sexta: { from: 347, to: 279 },
       sabado: { from: 407, to: 339 },
     },
+    foodFor: 6,
   },
   {
     id: 'festa',
@@ -69,6 +76,7 @@ export const PACKAGES: Package[] = [
       sexta: { from: 593, to: 499 },
       sabado: { from: 653, to: 549 },
     },
+    foodFor: 10,
     highlight: true,
     badge: 'Ideal para festa',
   },
@@ -89,6 +97,7 @@ export const PACKAGES: Package[] = [
       sexta: { from: 756, to: 649 },
       sabado: { from: 816, to: 699 },
     },
+    foodFor: 10,
   },
 ]
 
