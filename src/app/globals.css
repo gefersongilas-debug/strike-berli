@@ -1407,6 +1407,29 @@ a.attr-card:hover .attr-card__media svg {
   color: var(--muted-light);
   font-size: 0.92rem;
 }
+.pkg__who {
+  display: grid;
+  gap: 6px;
+  margin: 12px 0 2px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid var(--line-light);
+  font-size: 0.92rem;
+}
+.pkg__who li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pkg__who svg {
+  flex: none;
+  color: var(--yellow);
+}
+.pkg__who strong {
+  color: var(--white);
+  font-size: 1.05rem;
+}
 .pkg__price {
   display: flex;
   flex-wrap: wrap;
