@@ -86,6 +86,28 @@ describe('config', () => {
   })
 })
 
+describe('Clarity', () => {
+  it('só carrega com id, e só no modo direct', () => {
+    expect(buildInitScript(parsePublicConfig(fullEnv()))).not.toContain('clarity.ms')
+    const withClarity = fullEnv({ NEXT_PUBLIC_CLARITY_ID: 'abcde12345' })
+    const s = buildInitScript(parsePublicConfig(withClarity))
+    expect(s).toContain(`'clarity','script',"abcde12345"`)
+    expect(s).not.toContain('consentv2')
+    expect(() => new Function(s)).not.toThrow()
+    const viaGtm = parsePublicConfig({ ...withClarity, NEXT_PUBLIC_TRACKING_MODE: 'gtm', NEXT_PUBLIC_GTM_ID: 'GTM-ABC1234' })
+    expect(buildInitScript(viaGtm)).not.toContain('clarity.ms')
+  })
+
+  it('com banner de cookies, recebe o consentimento antes de gravar', () => {
+    const s = buildInitScript(parsePublicConfig(fullEnv({ NEXT_PUBLIC_CLARITY_ID: 'abcde12345', NEXT_PUBLIC_CONSENT_MODE: 'banner' })))
+    expect(s).toContain(`clarity('consentv2',{ad_Storage:trkG,analytics_Storage:trkG})`)
+  })
+
+  it('id fora do formato quebra o build', () => {
+    expect(validateTrackingConfig(fullEnv({ NEXT_PUBLIC_CLARITY_ID: 'https://clarity.ms/x' })).errors.join(' ')).toMatch(/CLARITY_ID/)
+  })
+})
+
 describe('link de saída para o Eleven Tickets', () => {
   const now = 1_790_000_000_000
   const base = 'https://eleventickets.com/strike-berlin/strike-berlin'

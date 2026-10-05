@@ -16,6 +16,7 @@ type Fn = (...args: unknown[]) => void
 export interface TrackingWindow {
   fbq?: Fn
   gtag?: Fn
+  clarity?: Fn
   dataLayer?: unknown[]
   location: { href: string }
   document: { cookie: string }
@@ -140,6 +141,7 @@ export function applyConsent(value: ConsentValue, win: TrackingWindow): void {
     analytics_storage: value,
   })
   win.fbq?.('consent', value === 'granted' ? 'grant' : 'revoke')
+  win.clarity?.('consentv2', { ad_Storage: value, analytics_Storage: value })
   win.dataLayer = win.dataLayer ?? []
   win.dataLayer.push({ event: 'trk_consent_update', trk_consent: value })
 }

@@ -27,6 +27,7 @@ export const ENV_KEYS = {
     'NEXT_PUBLIC_GOOGLE_ADS_RESERVATION_LABEL',
     'NEXT_PUBLIC_GOOGLE_ADS_CONTACT_LABEL',
     'NEXT_PUBLIC_LINKER_DOMAINS',
+    'NEXT_PUBLIC_CLARITY_ID',
     'NEXT_PUBLIC_CONSENT_MODE',
     'NEXT_PUBLIC_SERVER_PAGEVIEW',
   ],
@@ -82,6 +83,7 @@ export const PATTERNS = {
   ga4Id: /^G-[A-Z0-9]{6,14}$/,
   googleAdsId: /^AW-\d{6,14}$/,
   googleAdsLabel: /^[A-Za-z0-9_-]{8,40}$/,
+  clarityId: /^[a-z0-9]{6,20}$/,
   googleCustomerId: /^\d{10}$/,
   numericId: /^\d+$/,
   apiVersionMeta: /^v\d{2}\.\d$/,
@@ -121,6 +123,8 @@ export interface PublicConfig {
   googleAdsContactLabel?: string
   /** Domínios para o linker do gtag (_gl) — ex.: o site de reservas. */
   linkerDomains: string[]
+  /** Microsoft Clarity (mapa de calor e gravação de sessão). Só carrega no modo direct. */
+  clarityId?: string
   consentMode: ConsentMode
   serverPageview: boolean
 }
@@ -139,6 +143,7 @@ export function parsePublicConfig(env: Env): PublicConfig {
     googleAdsReservationLabel: clean(env.NEXT_PUBLIC_GOOGLE_ADS_RESERVATION_LABEL),
     googleAdsContactLabel: clean(env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_LABEL),
     linkerDomains: parseDomainList(env.NEXT_PUBLIC_LINKER_DOMAINS),
+    clarityId: clean(env.NEXT_PUBLIC_CLARITY_ID),
     consentMode: clean(env.NEXT_PUBLIC_CONSENT_MODE) === 'banner' ? 'banner' : 'off',
     serverPageview: bool(env.NEXT_PUBLIC_SERVER_PAGEVIEW, true),
   }
@@ -395,6 +400,7 @@ export function validateTrackingConfig(env: Env): ValidationResult {
   fmt('NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL', PATTERNS.googleAdsLabel, 'AbCdEfGhIjK12')
   fmt('NEXT_PUBLIC_GOOGLE_ADS_RESERVATION_LABEL', PATTERNS.googleAdsLabel, 'AbCdEfGhIjK12')
   fmt('NEXT_PUBLIC_GOOGLE_ADS_CONTACT_LABEL', PATTERNS.googleAdsLabel, 'AbCdEfGhIjK12')
+  fmt('NEXT_PUBLIC_CLARITY_ID', PATTERNS.clarityId, 'abcde12345')
   for (const d of pub.linkerDomains) {
     if (!PATTERNS.hostname.test(d))
       errors.push(`NEXT_PUBLIC_LINKER_DOMAINS tem "${d}" fora do formato (só o domínio, ex.: eleventickets.com — sem https nem barra).`)
@@ -446,6 +452,10 @@ export function validateTrackingConfig(env: Env): ValidationResult {
     warnings.push('Modo gtm: rótulos de reserva/contato e NEXT_PUBLIC_LINKER_DOMAINS são ignorados — configure essas tags e o linker no GTM.')
   if (pub.mode === 'direct' && pub.googleAdsId && !pub.googleAdsLeadLabel)
     warnings.push('NEXT_PUBLIC_GOOGLE_ADS_ID sem NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL: a tag carrega mas nenhuma conversão de lead é enviada pelo browser.')
+
+  // --- Clarity ---
+  if (pub.mode === 'gtm' && pub.clarityId)
+    warnings.push('NEXT_PUBLIC_CLARITY_ID só é usado no modo "direct". No modo gtm, instale o Clarity pelo container.')
 
   const gadsSet = GOOGLE_ADS_SERVER_KEYS.filter((k) => has(k))
   if (gadsSet.length > 0 && gadsSet.length < GOOGLE_ADS_SERVER_KEYS.length) {
@@ -509,6 +519,7 @@ export function validateTrackingConfig(env: Env): ValidationResult {
         ? `${onOff(pub.googleAdsId && pub.googleAdsReservationLabel)} / ${onOff(pub.googleAdsId && pub.googleAdsContactLabel)}`
         : 'via GTM',
     'browser: linker': pub.linkerDomains.length ? pub.linkerDomains.join(', ') : 'desligado',
+    'browser: clarity': pub.mode === 'direct' ? onOff(pub.clarityId) : 'via GTM',
     'server: meta capi': onOff(pub.metaPixelId && has('META_CAPI_ACCESS_TOKEN')) + (has('META_TEST_EVENT_CODE') ? ' (TEST)' : ''),
     'server: ga4 mp': onOff(pub.ga4Id && has('GA4_API_SECRET')) + ` (lead via ${pub.ga4LeadSource})`,
     'server: google ads api': onOff(gadsSet.length === GOOGLE_ADS_SERVER_KEYS.length),

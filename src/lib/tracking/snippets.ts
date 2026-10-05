@@ -42,6 +42,15 @@ function gtagLoader(ids: string[], cfg: PublicConfig): string {
   return s
 }
 
+function clarity(projectId: string, cfg: PublicConfig): string {
+  return (
+    `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;` +
+    `t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,'clarity','script',${j(projectId)});` +
+    // Sem aceite, o Clarity roda sem cookies (um id por página, sem juntar sessões).
+    (cfg.consentMode === 'banner' ? `clarity('consentv2',{ad_Storage:trkG,analytics_Storage:trkG});` : '')
+  )
+}
+
 function gtmLoader(gtmId: string): string {
   return (
     `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});` +
@@ -59,6 +68,7 @@ export function buildInitScript(cfg: PublicConfig): string {
   if (cfg.metaPixelId) s += metaPixel(cfg.metaPixelId, cfg)
   const googleIds = [cfg.ga4Id, cfg.googleAdsId].filter((v): v is string => !!v)
   if (googleIds.length) s += gtagLoader(googleIds, cfg)
+  if (cfg.clarityId) s += clarity(cfg.clarityId, cfg)
   return s
 }
 

@@ -68,9 +68,11 @@ Valores prontos para colar em [`vercel.env`](vercel.env) (sem segredos).
 | `NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL` | `vtpmCLqluZIdEO2ZpMJD` ("Site \| Pedido de proposta") | ✅ criada 05/10, secundária |
 | `NEXT_PUBLIC_GOOGLE_ADS_RESERVATION_LABEL` | `I6T9CMqvwJIdEO2ZpMJD` ("Site \| Clique em Reservar") | ✅ criada 05/10, secundária |
 | `NEXT_PUBLIC_GOOGLE_ADS_CONTACT_LABEL` | `peTiCM2vwJIdEO2ZpMJD` ("Site \| Clique no WhatsApp") | ✅ criada 05/10, secundária |
-| `NEXT_PUBLIC_GA4_MEASUREMENT_ID` | conta GA4 nossa "Strike Berlin" (sem acesso ao GA4 da cliente nem ao do Eleven Tickets) | ⏳ aguardando aceite dos termos do Analytics |
-| `NEXT_PUBLIC_GA4_LEAD_SOURCE` | `browser` até ter `GA4_API_SECRET` | ✅ |
+| `NEXT_PUBLIC_GA4_MEASUREMENT_ID` | `G-FJZ8H4W7CZ` — conta GA4 nossa "Strike Berlin" (sem acesso ao GA4 da cliente nem ao do Eleven Tickets) | ✅ criada 05/10, vinculada ao Google Ads |
+| `NEXT_PUBLIC_GA4_LEAD_SOURCE` | `server` | ✅ |
+| `GA4_API_SECRET` | segredo — valor em `STRIKE BELIN/.env` | ✅ testado no `/debug` do GA4 |
 | `NEXT_PUBLIC_LINKER_DOMAINS` | `eleventickets.com` | ✅ |
+| `NEXT_PUBLIC_CLARITY_ID` | `yt6arlvyol` (Microsoft Clarity) | ✅ |
 | `CRM_PROVIDER` | `kommo` quando o Kommo existir (abaixo) | ⏳ |
 
 ### Ligando o Kommo
