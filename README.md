@@ -55,6 +55,9 @@ exemplo, se o "Reservar" do topo converte mais que o da barra fixa do celular.
 
 ## Produção (Vercel → Settings → Environment Variables)
 
+Valores prontos para colar em [`vercel.env`](vercel.env) (sem segredos).
+
+
 | Variável | Valor | Situação |
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | `https://www.strikeberlin.com.br` | ✅ |
@@ -62,8 +65,10 @@ exemplo, se o "Reservar" do topo converte mais que o da barra fixa do celular.
 | `NEXT_PUBLIC_META_PIXEL_ID` | `2138722490022940` | ✅ mesmo pixel do Eleven Tickets |
 | `META_CAPI_ACCESS_TOKEN` | gerar em Gerenciador de Eventos → pixel → Configurações → API de Conversões | ❌ obrigatório em produção (o build recusa sem) |
 | `NEXT_PUBLIC_GOOGLE_ADS_ID` | `AW-18124180717` | ✅ conta 800-629-7198 |
-| `NEXT_PUBLIC_GOOGLE_ADS_*_LABEL` | rótulos das ações novas (reserva, contato, lead) | ❌ criar as ações; começar como **secundárias** |
-| `NEXT_PUBLIC_GA4_MEASUREMENT_ID` | GA4 da Strike (o site antigo carregava `G-YG4CN76Z1Y`) | ⚠️ confirmar a propriedade; sem acesso ao GA4 |
+| `NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL` | `vtpmCLqluZIdEO2ZpMJD` ("Site \| Pedido de proposta") | ✅ criada 05/10, secundária |
+| `NEXT_PUBLIC_GOOGLE_ADS_RESERVATION_LABEL` | `I6T9CMqvwJIdEO2ZpMJD` ("Site \| Clique em Reservar") | ✅ criada 05/10, secundária |
+| `NEXT_PUBLIC_GOOGLE_ADS_CONTACT_LABEL` | `peTiCM2vwJIdEO2ZpMJD` ("Site \| Clique no WhatsApp") | ✅ criada 05/10, secundária |
+| `NEXT_PUBLIC_GA4_MEASUREMENT_ID` | conta GA4 nossa "Strike Berlin" (sem acesso ao GA4 da cliente nem ao do Eleven Tickets) | ⏳ aguardando aceite dos termos do Analytics |
 | `NEXT_PUBLIC_GA4_LEAD_SOURCE` | `browser` até ter `GA4_API_SECRET` | ✅ |
 | `NEXT_PUBLIC_LINKER_DOMAINS` | `eleventickets.com` | ✅ |
 | `CRM_PROVIDER` | `kommo` quando o Kommo existir (abaixo) | ⏳ |
