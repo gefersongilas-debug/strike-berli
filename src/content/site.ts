@@ -36,12 +36,32 @@ export const SITE = {
   entryFee: 'R$ 10 por pessoa, com 1 água 500 ml de cortesia',
 } as const
 
+/**
+ * Regras da casa publicadas no Eleven Tickets (conferidas em 05/10/2026).
+ * São a fonte para FAQ e páginas — não invente regra fora desta lista.
+ */
+export const RULES = {
+  entry: 'A entrada custa R$ 10 por pessoa e inclui 1 água de 500 ml de cortesia.',
+  onlineFreeEntry: 'Reservando online, você ganha 1 entrada gratuita (com 1 água de 500 ml).',
+  kidsFree: 'Crianças menores de 9 anos não pagam entrada (é preciso apresentar documento).',
+  minors: 'Menores de 18 anos ficam acompanhados por um responsável maior de idade o tempo todo.',
+  noOutsideFood: 'Não é permitido trazer alimentos ou bebidas de fora.',
+  perLane: 'Cada pista recebe até 12 pessoas, jogando em até 6 duplas revezando.',
+  birthday: 'Aniversariante ganha um petit gâteau no mês do aniversário (de 3 dias antes a 3 dias depois da data).',
+  combosWhatsapp: 'Combos são fechados só pelo WhatsApp.',
+  late: 'Atrasou? Avise pelo WhatsApp para tentar manter a pista; o tempo perdido não é acrescentado.',
+  cancel: 'Não há reembolso da reserva. Com aviso de até 4 horas antes, dá para remarcar ou deixar o valor como crédito por 30 dias.',
+} as const
+
 export const WHATSAPP_TEXT = {
   default: 'Oi! Vim pelo site e quero reservar uma pista no Strike.',
   aniversario: 'Oi! Vim pelo site e quero fazer um aniversário no Strike.',
   empresas: 'Oi! Vim pelo site e quero uma proposta de confraternização para a minha empresa.',
   vr: 'Oi! Vim pelo site e quero saber da realidade virtual.',
   pacotes: 'Oi! Vim pelo site e quero saber dos pacotes.',
+  diaCriancas: 'Oi! Vim pelo site e quero a oferta de Dia das Crianças com doce extra.',
+  halloween: 'Oi! Vim pelo site e quero reservar para o Halloween no Strike.',
+  grupos: 'Oi! Vim pelo site e quero uma proposta de confraternização para um grupo.',
   duvida: 'Oi! Vim pelo site e tenho uma dúvida.',
 } as const
 
@@ -55,8 +75,14 @@ export const NAV = [
   { href: '/#atracoes', label: 'Atrações' },
   { href: '/pacotes', label: 'Pacotes' },
   { href: '/aniversario', label: 'Aniversários' },
-  { href: '/empresas', label: 'Empresas' },
+  { href: '/confraternizacao', label: 'Confraternização' },
   { href: '/realidade-virtual', label: 'Realidade virtual' },
+] as const
+
+export const FOOTER_EXTRA = [
+  { href: '/empresas', label: 'Empresas' },
+  { href: '/dia-das-criancas', label: 'Dia das Crianças' },
+  { href: '/halloween', label: 'Halloween' },
 ] as const
 
 export const fullAddress = `${SITE.address.street} · ${SITE.address.district} · ${SITE.address.city}/${SITE.address.state}`

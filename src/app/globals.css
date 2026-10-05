@@ -2316,3 +2316,330 @@ a.attr-card:hover .attr-card__media svg {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* =============================================================================
+   Páginas sazonais e grupos
+   ========================================================================== */
+
+/* --- Topo sazonal ------------------------------------------------------------- */
+.season-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(var(--header-h) + clamp(40px, 9vh, 110px));
+  padding-bottom: clamp(40px, 5vw, 76px);
+  overflow: hidden;
+  isolation: isolate;
+}
+.season-hero--kids {
+  background:
+    radial-gradient(45% 50% at 85% 20%, rgb(255 95 162 / 0.35), transparent 70%),
+    radial-gradient(40% 45% at 10% 80%, rgb(62 198 255 / 0.3), transparent 70%),
+    radial-gradient(35% 40% at 55% 105%, rgb(250 200 56 / 0.25), transparent 70%),
+    var(--night);
+}
+.season-hero--halloween {
+  background:
+    radial-gradient(40% 45% at 80% 25%, rgb(255 122 26 / 0.32), transparent 70%),
+    radial-gradient(50% 55% at 10% 90%, rgb(123 63 228 / 0.38), transparent 70%),
+    #0b0612;
+}
+.season-hero__inner {
+  position: relative;
+  z-index: 2;
+}
+.season-hero__title {
+  max-width: 12ch;
+}
+.season-hero--kids .accent {
+  color: var(--yellow);
+}
+.season-decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.candy,
+.bat {
+  position: absolute;
+  display: block;
+  will-change: transform;
+}
+.candy {
+  opacity: 0.85;
+}
+.bat {
+  opacity: 0.95;
+}
+.bat svg {
+  overflow: visible;
+}
+.season-pill--candy {
+  background: rgb(255 95 162 / 0.16);
+  border-color: rgb(255 95 162 / 0.6);
+  color: #ffb3d6;
+}
+.season-pill--halloween {
+  background: rgb(255 122 26 / 0.14);
+  border-color: rgb(255 122 26 / 0.55);
+  color: #ffb067;
+}
+.season-pill--halloween .season-pill__dot {
+  background: #ff7a1a;
+}
+
+/* --- Oferta -------------------------------------------------------------------- */
+.offer {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .offer {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 72px;
+  }
+}
+.offer__art {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  margin-inline: auto;
+  padding: 40px 30px;
+  border-radius: var(--radius-xl);
+  background: var(--white);
+  border: 1px solid var(--line-dark);
+  box-shadow: 0 40px 80px -40px rgb(219 28 40 / 0.45);
+  rotate: -3deg;
+}
+.offer__art svg {
+  width: 100%;
+  height: auto;
+}
+.offer__sticker {
+  white-space: nowrap;
+  position: absolute;
+  top: -18px;
+  right: -14px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--red);
+  color: var(--white);
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  rotate: 10deg;
+  box-shadow: 0 12px 24px -10px rgb(0 0 0 / 0.4);
+}
+.offer__fine {
+  margin-top: 12px;
+  font-size: 0.88rem;
+  color: var(--muted-dark);
+}
+
+/* --- Quando vir ---------------------------------------------------------------- */
+.when {
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 760px) {
+  .when {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+.when__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background: var(--night-2);
+  border: 1px solid var(--line-light);
+}
+.when__item > svg {
+  color: var(--yellow);
+}
+.when__item--hot {
+  border: 2px solid var(--yellow);
+  background: linear-gradient(160deg, var(--night-3), var(--night-2) 70%);
+}
+.when__item h3 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+.when__price {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--yellow);
+  line-height: 1.1;
+}
+.when__item p:not(.when__price) {
+  color: var(--muted-light);
+  font-size: 0.96rem;
+  margin-bottom: 10px;
+}
+.when__item .btn {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* --- Calculadora de grupo ---------------------------------------------------- */
+.planner {
+  display: grid;
+  gap: 24px;
+}
+@media (min-width: 1000px) {
+  .planner {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+}
+.planner__controls {
+  display: grid;
+  gap: 28px;
+  padding: clamp(22px, 3vw, 36px);
+  border-radius: var(--radius-xl);
+  background: var(--night-2);
+  border: 1px solid var(--line-light);
+}
+.planner__field {
+  display: grid;
+  gap: 12px;
+}
+.planner__field > span {
+  font-weight: 800;
+}
+.planner__field strong {
+  color: var(--yellow);
+  font-size: 1.4rem;
+  margin-left: 6px;
+}
+.planner__toggle {
+  margin-bottom: 0;
+}
+.planner input[type='range'] {
+  width: 100%;
+  accent-color: var(--yellow);
+  height: 28px;
+}
+.planner__result {
+  padding: clamp(22px, 3vw, 36px);
+  border-radius: var(--radius-xl);
+  background: var(--yellow);
+  color: var(--ink);
+  display: grid;
+  gap: 10px;
+}
+.planner__lanes {
+  display: flex;
+  gap: 8px;
+  height: 64px;
+  margin-bottom: 6px;
+}
+.planner__lanes span {
+  flex: 1;
+  border-radius: 10px;
+  background: rgb(8 8 15 / 0.12);
+  border: 2px dashed rgb(8 8 15 / 0.25);
+  transition:
+    background-color 0.35s var(--ease),
+    transform 0.35s var(--ease);
+}
+.planner__lanes span.is-on {
+  background: var(--ink);
+  border-style: solid;
+  border-color: var(--ink);
+  transform: translateY(-4px);
+}
+.planner__big {
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+.planner__sub {
+  font-weight: 700;
+}
+.planner__est {
+  margin: 12px 0 0;
+  display: grid;
+  gap: 8px;
+  border-top: 2px solid var(--ink);
+  padding-top: 14px;
+}
+.planner__est div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.planner__est dt {
+  font-weight: 600;
+}
+.planner__est dd {
+  margin: 0;
+  font-weight: 900;
+  white-space: nowrap;
+}
+.planner__fine {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin: 6px 0 10px;
+}
+.planner__result .btn {
+  justify-self: start;
+}
+
+/* --- Tema Halloween (página /halloween) ------------------------------------- */
+.theme-halloween {
+  --hw-orange: #ff7a1a;
+  --hw-purple: #7b3fe4;
+}
+.theme-halloween .accent,
+.theme-halloween .eyebrow:not(.eyebrow--dark),
+.theme-halloween .when__price,
+.theme-halloween .pkg__price strong,
+.theme-halloween .pkg__items svg,
+.theme-halloween .when__item > svg {
+  color: var(--hw-orange);
+}
+.theme-halloween .btn--primary {
+  background: var(--hw-orange);
+  color: #160800;
+  box-shadow: 0 14px 36px -14px rgb(255 122 26 / 0.75);
+}
+.theme-halloween .btn--primary:hover {
+  background: #ff9a4d;
+}
+.theme-halloween .pkgs__toggle button.is-on {
+  background: var(--hw-orange);
+  border-color: var(--hw-orange);
+}
+.theme-halloween .section--night,
+.theme-halloween .visit {
+  background: #0e0818;
+}
+.theme-halloween .pkg,
+.theme-halloween .when__item {
+  background: #1a0f2b;
+}
+.theme-halloween .pkg--hot,
+.theme-halloween .when__item--hot {
+  border-color: var(--hw-orange);
+  background: linear-gradient(160deg, #2a1546, #1a0f2b 70%);
+}
+.theme-halloween .why__icon {
+  background: var(--hw-orange);
+}
+.theme-halloween .cta-band {
+  background: var(--hw-orange);
+}
+.theme-halloween .eyebrow--dark {
+  color: var(--hw-purple);
+}

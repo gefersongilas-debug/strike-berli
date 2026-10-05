@@ -12,6 +12,9 @@ const FIELD_PREFIX = 'fields.'
 export const EVENT_TYPES = [
   'Aniversário infantil',
   'Aniversário adulto',
+  'Dia das Crianças',
+  'Halloween',
+  'Confraternização de grupo',
   'Confraternização de empresa',
   'Happy hour / turma de amigos',
   'Programa em família',

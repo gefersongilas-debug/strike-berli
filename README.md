@@ -19,11 +19,20 @@ npm run dev                  # ou, da raiz do workspace: preview "strike-site" (
 | `/empresas` | Confraternização e happy hour, com nota fiscal | "Confraternização" |
 | `/pacotes` | Os 4 pacotes com preço por dia (seg–qui, sexta, sábado) | "Pacotes Seg a Qui" |
 | `/realidade-virtual` | VR | "Realidade Virtual" |
+| `/dia-das-criancas` | Dia das Crianças com a oferta de doce extra (o bloco da oferta some depois de 12/10) | "Dia das Crianças" |
+| `/halloween` | Halloween, sexta 30 e sábado 31/10, com o preço da pista desses dias | "Halloween" |
+| `/confraternizacao` | Grupos grandes, com a calculadora de pistas (12 pessoas por pista, 4 pistas) | "Confraternização" |
 | `/obrigado` | Depois do formulário; oferece mandar o resumo no WhatsApp. **Não** dispara conversão | — |
 | `/privacidade` | LGPD e cookies | — |
 
 Conteúdo editável sem mexer em layout: `src/content/` (`site.ts` telefone, link de
-reserva, horário · `packages.ts` preços · `attractions.ts` · `faq.ts`).
+reserva, horário e as regras da casa · `packages.ts` preços · `offers.ts` ofertas e datas
+sazonais · `attractions.ts` · `faq.ts`).
+
+**Preços e regras têm fonte.** Os combos vêm do site antigo e a pista avulsa e as regras
+(entrada, menores de 9 anos, 12 por pista, comida de fora) vêm do Eleven Tickets, conferidos
+em 05/10/2026. `tests/unit/precos.test.ts` trava os valores: mudar preço sem atualizar o
+teste quebra o build. Oferta nova só entra em `offers.ts` depois de confirmada pelo cliente.
 
 ## O que é medido
 

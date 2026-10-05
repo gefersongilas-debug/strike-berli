@@ -10,6 +10,7 @@ import { Packages } from '@/components/sections/Packages'
 import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
 import { UntilDate } from '@/components/ui/UntilDate'
 import { FAQ_GERAL } from '@/content/faq'
+import { SEASON } from '@/content/offers'
 import { SITE } from '@/content/site'
 
 export default function Home() {
@@ -25,9 +26,14 @@ export default function Home() {
         </div>
 
         <div className="container hero__inner">
-          <UntilDate end="2026-10-31">
-            <Link href="/aniversario" className="season-pill">
-              <span className="season-pill__dot" /> Outubro é Mês da Criança no Strike <span aria-hidden="true">→</span>
+          <UntilDate end={SEASON.diaDasCriancas.until}>
+            <Link href="/dia-das-criancas" className="season-pill">
+              <span className="season-pill__dot" /> Dia das Crianças no Strike: tem doce extra <span aria-hidden="true">→</span>
+            </Link>
+          </UntilDate>
+          <UntilDate from={SEASON.halloween.from} end={SEASON.halloween.until}>
+            <Link href="/halloween" className="season-pill season-pill--halloween">
+              <span className="season-pill__dot" /> Halloween no Strike · 30 e 31/10 <span aria-hidden="true">→</span>
             </Link>
           </UntilDate>
           <p className="eyebrow" data-hero>

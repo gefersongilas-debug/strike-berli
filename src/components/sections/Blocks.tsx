@@ -120,7 +120,7 @@ const TURMAS = [
   {
     href: '/aniversario',
     icon: Cake,
-    tag: 'Mais pedido',
+    tag: 'Festa infantil',
     title: 'Aniversário',
     text: 'Combo com salgados, doces e refri, canaleta pra criançada e gastrobar pros adultos.',
     tone: 'yellow',
@@ -134,11 +134,11 @@ const TURMAS = [
     tone: 'red',
   },
   {
-    href: '/pacotes',
+    href: '/confraternizacao',
     icon: Users,
-    tag: 'Pacotes',
-    title: 'Turma de amigos',
-    text: 'Pista, fritas e torre de chopp. Combo Burger pra quem chega com fome.',
+    tag: 'Grupos grandes',
+    title: 'Confraternização',
+    text: 'Turma, família grande ou a firma inteira: 4 pistas, sinuca, karaokê e gastrobar.',
     tone: 'blue',
   },
   {

@@ -1,6 +1,11 @@
 /**
- * Pacotes e preços, copiados do site antigo (GreatPages) em 05/10/2026.
- * ⚠️ Confirmar a vigência com a Roseli antes de anunciar preço.
+ * Pacotes e preços.
+ *
+ * Fontes, conferidas em 05/10/2026 (tests/unit/precos.test.ts trava estes valores):
+ * - Combos: site antigo strikeberlin.com.br (GreatPages). O Eleven Tickets não vende
+ *   combo ("Consulta de combos somente pelo WhatsApp").
+ * - Pista avulsa: Eleven Tickets, 1 hora de boliche por pista, sem a taxa do site.
+ * Mudou preço? Atualize aqui E no teste, citando a fonte e a data.
  */
 
 export type DayKey = 'semana' | 'sexta' | 'sabado'
@@ -20,6 +25,8 @@ export interface Package {
   /** Preço cheio → preço do pacote, por dia. */
   prices: Record<DayKey, { from: number; to: number }>
   highlight?: boolean
+  /** Selo do card. Só use texto que seja fato (não "mais vendido" sem dado). */
+  badge?: string
 }
 
 export const PACKAGES: Package[] = [
@@ -63,6 +70,7 @@ export const PACKAGES: Package[] = [
       sabado: { from: 653, to: 549 },
     },
     highlight: true,
+    badge: 'Ideal para festa',
   },
   {
     id: 'burger',
@@ -83,6 +91,12 @@ export const PACKAGES: Package[] = [
     },
   },
 ]
+
+/** Pista avulsa (1 hora, até 12 pessoas) no Eleven Tickets. A taxa do site é 10% à parte. */
+export const LANE_PRICES: Record<DayKey, number> = { semana: 79, sexta: 99, sabado: 129 }
+export const LANE_FEE_PCT = 10
+export const PEOPLE_PER_LANE = 12
+export const LANES = 4
 
 export function brl(n: number): string {
   return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })

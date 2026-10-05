@@ -58,10 +58,13 @@ export function HowToBook() {
           </p>
           <ul className="htb__facts">
             <li>
-              <strong>50% antecipado</strong> confirma a reserva
+              <strong>Combos</strong> fechados pelo WhatsApp, com 50% antecipado
             </li>
             <li>
-              <strong>Entrada R$ 10</strong> por pessoa, com água de cortesia
+              <strong>Entrada R$ 10</strong> por pessoa, com água de cortesia — menores de 9 anos não pagam
+            </li>
+            <li>
+              <strong>Até 12 pessoas</strong> por pista
             </li>
             <li>
               <strong>Menores</strong> entram com responsável legal
@@ -84,7 +87,7 @@ export function HowToBook() {
               <div>
                 <p className="htb-step__tag">Opção 01 · mais rápida</p>
                 <h3>Reserva online</h3>
-                <p>Escolha o dia, o horário e o número de pessoas, pague o sinal e pronto. Leva dois minutos.</p>
+                <p>Escolha o dia, o horário e a pista e pague no site de reservas. Reservando online, você ganha 1 entrada gratuita.</p>
                 <ReserveButton id="como-reservar-online" size="sm">
                   Reservar online
                 </ReserveButton>

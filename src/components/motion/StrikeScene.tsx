@@ -1,8 +1,11 @@
 'use client'
 /**
- * Faixa do topo da home: a bola entra rolando, derruba os 10 pinos e explode um
+ * Faixa do topo: a bola entra rolando, derruba os 10 pinos e explode um
  * "STRIKE!". Toca uma vez na chegada; "Jogar de novo" repete. Com
  * prefers-reduced-motion, fica a cena parada com os pinos em pé.
+ *
+ * Variantes: `halloween` (bola-abóbora, pinos-fantasma, "BUUU!") e `kids`
+ * (cores de festa). Uma cena por página: os ids do SVG são fixos.
  */
 import { RotateCcw } from 'lucide-react'
 import { useRef } from 'react'
@@ -38,9 +41,50 @@ const SCATTER = [
   [110, -100, 200],
 ]
 
+export type SceneVariant = 'classic' | 'halloween' | 'kids'
+
+const THEMES = {
+  classic: {
+    neon: '#4C6BFF',
+    trail: ['#4C6BFF', '#7C93FF'],
+    ball: ['#3a3a52', '#121220', '#050509'],
+    pumpkin: false,
+    ghost: false,
+    burstFill: '#FAC838',
+    burstText: 'STRIKE!',
+    burstColor: '#DB1C28',
+    confetti: ['#FAC838', '#DB1C28', '#F4EDDF'],
+    label: 'Bola de boliche derrubando os dez pinos: strike!',
+  },
+  halloween: {
+    neon: '#FF7A1A',
+    trail: ['#FF7A1A', '#FFB067'],
+    ball: ['#FFC27A', '#FF7A1A', '#B8460B'],
+    pumpkin: true,
+    ghost: true,
+    burstFill: '#7B3FE4',
+    burstText: 'BUUU!',
+    burstColor: '#FFE9C7',
+    confetti: ['#FF7A1A', '#7B3FE4', '#F4EDDF'],
+    label: 'Bola-abóbora derrubando dez pinos-fantasma: buuu!',
+  },
+  kids: {
+    neon: '#3EC6FF',
+    trail: ['#FF5FA2', '#FFD24A'],
+    ball: ['#FFB3D6', '#FF5FA2', '#C2185B'],
+    pumpkin: false,
+    ghost: false,
+    burstFill: '#FAC838',
+    burstText: 'STRIKE!',
+    burstColor: '#DB1C28',
+    confetti: ['#FF5FA2', '#3EC6FF', '#FAC838', '#7BE07B'],
+    label: 'Bola de boliche colorida derrubando os dez pinos: strike!',
+  },
+} as const
+
 const CONFETTI = Array.from({ length: 16 }, (_, i) => {
   const a = (i / 16) * Math.PI * 2
-  return { dx: Math.cos(a) * (90 + (i % 3) * 30), dy: Math.sin(a) * (60 + (i % 4) * 18), c: ['#FAC838', '#DB1C28', '#F4EDDF'][i % 3], r: (i * 47) % 360 }
+  return { dx: Math.cos(a) * (90 + (i % 3) * 30), dy: Math.sin(a) * (60 + (i % 4) * 18), r: (i * 47) % 360 }
 })
 
 const IMPACT_X = PINS_CX - 70
@@ -57,7 +101,8 @@ const BURST_PATH = (() => {
   return `${d}Z`
 })()
 
-export function StrikeScene() {
+export function StrikeScene({ variant = 'classic' }: { variant?: SceneVariant }) {
+  const th = THEMES[variant]
   const scope = useRef<HTMLDivElement>(null)
   const tl = useRef<gsap.core.Timeline | null>(null)
 
@@ -139,7 +184,7 @@ export function StrikeScene() {
 
   return (
     <div className="strike-scene" ref={scope}>
-      <svg viewBox="0 0 1200 240" preserveAspectRatio="xMaxYMax slice" role="img" aria-label="Bola de boliche derrubando os dez pinos: strike!">
+      <svg viewBox="0 0 1200 240" preserveAspectRatio="xMaxYMax slice" role="img" aria-label={th.label}>
         <defs>
           <filter id="ss-glow" x="-20%" y="-200%" width="140%" height="500%">
             <feGaussianBlur stdDeviation="4" result="b" />
@@ -149,13 +194,13 @@ export function StrikeScene() {
             </feMerge>
           </filter>
           <linearGradient id="ss-trail" x1="0" x2="1">
-            <stop offset="0" stopColor="#4C6BFF" stopOpacity="0" />
-            <stop offset="1" stopColor="#7C93FF" stopOpacity="0.9" />
+            <stop offset="0" stopColor={th.trail[0]} stopOpacity="0" />
+            <stop offset="1" stopColor={th.trail[1]} stopOpacity="0.9" />
           </linearGradient>
           <radialGradient id="ss-ball" cx="0.35" cy="0.3" r="0.8">
-            <stop offset="0" stopColor="#3a3a52" />
-            <stop offset="0.55" stopColor="#121220" />
-            <stop offset="1" stopColor="#050509" />
+            <stop offset="0" stopColor={th.ball[0]} />
+            <stop offset="0.55" stopColor={th.ball[1]} />
+            <stop offset="1" stopColor={th.ball[2]} />
           </radialGradient>
           <radialGradient id="ss-flash">
             <stop offset="0" stopColor="#FFF6D6" />
@@ -168,9 +213,9 @@ export function StrikeScene() {
         </defs>
 
         {/* pista */}
-        <line x1="0" y1={FLOOR + 1} x2="1200" y2={FLOOR + 1} stroke="#4C6BFF" strokeWidth="3" filter="url(#ss-glow)" />
+        <line x1="0" y1={FLOOR + 1} x2="1200" y2={FLOOR + 1} stroke={th.neon} strokeWidth="3" filter="url(#ss-glow)" />
         {[220, 300, 380, 460, 540].map((x, i) => (
-          <path key={x} d={`M${x} ${FLOOR - 4} l10 -12 l10 12 Z`} fill="#4C6BFF" opacity={0.25 + i * 0.1} />
+          <path key={x} d={`M${x} ${FLOOR - 4} l10 -12 l10 12 Z`} fill={th.neon} opacity={0.25 + i * 0.1} />
         ))}
 
         <circle className="ss-flash" cx={PINS_CX} cy="150" r="120" fill="url(#ss-flash)" opacity="0" />
@@ -179,12 +224,21 @@ export function StrikeScene() {
           <g key={i} transform={`translate(${p.cx - 20 * p.scale} ${p.bottom - 100 * p.scale}) scale(${p.scale})`}>
             <g className="ss-pin" data-row={p.row}>
               <ellipse cx="20" cy="100" rx="15" ry="3" fill="#000" opacity="0.35" />
-              <g clipPath="url(#ss-pin-clip)">
-                <rect width="40" height="100" fill="#F7F3EA" />
-                <rect x="24" width="16" height="100" fill="#D9D0BE" opacity="0.6" />
-                <rect y="22" width="40" height="4" fill="#DB1C28" />
-                <rect y="29" width="40" height="4" fill="#DB1C28" />
-              </g>
+              {th.ghost ? (
+                <g>
+                  <path d="M20 10c11 0 18 9 18 22v64l-6-6-6 6-6-6-6 6-6-6-6 6V32C2 19 9 10 20 10Z" fill="#F7F3EA" opacity="0.95" />
+                  <ellipse cx="14" cy="36" rx="3.4" ry="4.8" fill="#0B0612" />
+                  <ellipse cx="26" cy="36" rx="3.4" ry="4.8" fill="#0B0612" />
+                  <ellipse cx="20" cy="50" rx="3" ry="4.2" fill="#0B0612" />
+                </g>
+              ) : (
+                <g clipPath="url(#ss-pin-clip)">
+                  <rect width="40" height="100" fill="#F7F3EA" />
+                  <rect x="24" width="16" height="100" fill="#D9D0BE" opacity="0.6" />
+                  <rect y="22" width="40" height="4" fill="#DB1C28" />
+                  <rect y="29" width="40" height="4" fill="#DB1C28" />
+                </g>
+              )}
             </g>
           </g>
         ))}
@@ -194,23 +248,35 @@ export function StrikeScene() {
             <rect className="ss-trail" x={-190} y={-6} width="170" height="12" rx="6" fill="url(#ss-trail)" opacity="0" />
             <g className="ss-spin">
               <circle r={BALL_R} fill="url(#ss-ball)" />
-              <circle cx="-9" cy="-11" r="4.2" fill="#FAC838" />
-              <circle cx="4" cy="-13" r="4.2" fill="#FAC838" />
-              <circle cx="-2" cy="1" r="4.2" fill="#FAC838" />
+              {th.pumpkin ? (
+                <g>
+                  <ellipse rx="11" ry={BALL_R} fill="none" stroke="#B8460B" strokeWidth="2" opacity="0.6" />
+                  <ellipse rx="22" ry={BALL_R} fill="none" stroke="#B8460B" strokeWidth="2" opacity="0.45" />
+                  <rect x="-3" y={-BALL_R - 7} width="6" height="9" rx="2" fill="#3F7D2A" />
+                  <path d="M-15 -8 l6 -9 l6 9 Z M3 -8 l6 -9 l6 9 Z" fill="#2A0E00" />
+                  <path d="M-17 6 l5 5 l5 -5 l5 5 l5 -5 l5 5 l5 -5 q-3 12 -15 12 q-12 0 -15 -12 Z" fill="#2A0E00" />
+                </g>
+              ) : (
+                <g>
+                  <circle cx="-9" cy="-11" r="4.2" fill="#FAC838" />
+                  <circle cx="4" cy="-13" r="4.2" fill="#FAC838" />
+                  <circle cx="-2" cy="1" r="4.2" fill="#FAC838" />
+                </g>
+              )}
             </g>
             <ellipse cx="-12" cy="-16" rx="8" ry="4" fill="#fff" opacity="0.14" />
           </g>
         </g>
 
-        {CONFETTI.map((c, i) => (
-          <rect key={i} className="ss-confetti" x={PINS_CX - 4} y="110" width="8" height="14" rx="2" fill={c.c} opacity="0" />
+        {CONFETTI.map((_, i) => (
+          <rect key={i} className="ss-confetti" x={PINS_CX - 4} y="110" width="8" height="14" rx="2" fill={th.confetti[i % th.confetti.length]} opacity="0" />
         ))}
 
         <g transform={`translate(${PINS_CX - 20} 96)`}>
           <g className="ss-burst" opacity="0">
-            <path d={BURST_PATH} fill="#FAC838" stroke="#0A0A12" strokeWidth="5" strokeLinejoin="round" />
-            <text x="0" y="15" textAnchor="middle" className="ss-burst-text">
-              STRIKE!
+            <path d={BURST_PATH} fill={th.burstFill} stroke="#0A0A12" strokeWidth="5" strokeLinejoin="round" />
+            <text x="0" y="15" textAnchor="middle" className="ss-burst-text" style={{ fill: th.burstColor }}>
+              {th.burstText}
             </text>
           </g>
         </g>

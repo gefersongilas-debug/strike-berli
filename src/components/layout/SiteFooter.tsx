@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { NAV, SITE, fullAddress } from '@/content/site'
+import { FOOTER_EXTRA, NAV, SITE, fullAddress } from '@/content/site'
 import { InstagramIcon } from '@/components/ui/BrandIcons'
 import { PhoneLink, ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
 
@@ -18,7 +18,7 @@ export function SiteFooter() {
             <li>
               <Link href="/">Início</Link>
             </li>
-            {NAV.map((n) => (
+            {[...NAV, ...FOOTER_EXTRA].map((n) => (
               <li key={n.href}>
                 <Link href={n.href}>{n.label}</Link>
               </li>

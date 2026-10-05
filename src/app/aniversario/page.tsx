@@ -6,6 +6,7 @@ import { Packages } from '@/components/sections/Packages'
 import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
 import { UntilDate } from '@/components/ui/UntilDate'
 import { FAQ_ANIVERSARIO } from '@/content/faq'
+import { RULES } from '@/content/site'
 
 export const metadata: Metadata = {
   title: 'Aniversário infantil com boliche',
@@ -20,7 +21,7 @@ const WHY = [
   { icon: Gamepad2, title: 'Fliperama e air hockey', text: '10 fichas de game no Combo Festa e máquina de pelúcia pra levar lembrança.' },
   { icon: Utensils, title: 'Comida resolvida', text: '100 salgados, 50 doces e refri. Pros adultos, gastrobar com chopp e drinks.' },
   { icon: Cake, title: 'Kit com torta', text: 'Também tem kits com torta, doces e salgados. A gente conversa o formato certo pra sua festa.' },
-  { icon: Sparkles, title: 'Climatizado e acessível', text: 'Ambiente climatizado, elevador e mesas e camarotes pra família inteira.' },
+  { icon: Sparkles, title: 'Presente do aniversariante', text: RULES.birthday },
 ]
 
 export default function Aniversario() {

@@ -65,7 +65,7 @@ export function Packages({ only, tone = 'dark' }: { only?: string[]; tone?: 'dar
           const price = p.prices[day]
           return (
             <article key={p.id} className={`pkg${p.highlight ? ' pkg--hot' : ''}`} id={`pacote-${p.id}`}>
-              {p.highlight && <span className="pkg__badge">Mais pedido para festa</span>}
+              {p.badge && <span className="pkg__badge">{p.badge}</span>}
               <h3 className="pkg__name">{p.name}</h3>
               <p className="pkg__ideal">{p.idealFor}</p>
               <p className="pkg__price">
