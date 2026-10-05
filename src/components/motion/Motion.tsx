@@ -150,10 +150,25 @@ export function Motion({ children }: { children: ReactNode }) {
       })
 
       // Imagens e fontes mudam a altura da página depois do primeiro cálculo.
+      // A seção fixada (atrações) cresce a página: quem chegou por âncora (/#onde)
+      // é levado de novo ao lugar certo depois da medição.
+      const toHash = () => {
+        const id = decodeURIComponent(window.location.hash.slice(1))
+        if (id) document.getElementById(id)?.scrollIntoView()
+      }
       const refresh = () => ScrollTrigger.refresh()
+      const onLoad = () => {
+        refresh()
+        toHash()
+      }
       document.fonts?.ready.then(refresh)
-      window.addEventListener('load', refresh, { once: true })
-      return () => window.removeEventListener('load', refresh)
+      const raf = requestAnimationFrame(toHash)
+      if (document.readyState === 'complete') onLoad()
+      else window.addEventListener('load', onLoad, { once: true })
+      return () => {
+        cancelAnimationFrame(raf)
+        window.removeEventListener('load', onLoad)
+      }
     },
     { scope },
   )

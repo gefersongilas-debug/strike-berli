@@ -27,7 +27,7 @@ export default function Empresas() {
     <>
       <PageHero
         eyebrow="Empresas e happy hour"
-        title="Confraternização de grupo do jeito que"
+        title="Confra da empresa do jeito que"
         accent="vale a pena."
         lead="Boliche, sinuca, realidade virtual, karaokê, petiscos e aquele chopp bem gelado. Proposta sob medida para a sua equipe, com nota fiscal."
         photo={{ src: '/img/pistas-neon.jpg', alt: 'Pistas de boliche em neon do Strike Berlin' }}
