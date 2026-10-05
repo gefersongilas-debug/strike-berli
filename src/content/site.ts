@@ -1,0 +1,62 @@
+/**
+ * Dados da casa. Tudo que muda com o negócio (telefone, link de reserva,
+ * horário) fica aqui — as páginas só leem.
+ */
+
+export const SITE = {
+  name: 'Strike Berlin',
+  tagline: 'Boliche Sport Bar',
+  legalName: 'Strike Berlin Boliche e Choperia Ltda',
+  cnpj: '30.132.833/0001-77',
+  city: 'São Leopoldo',
+  address: {
+    street: 'Av. João Corrêa, 1008',
+    district: 'Centro',
+    city: 'São Leopoldo',
+    state: 'RS',
+    zip: '93020-668',
+  },
+  /** Número do WhatsApp da casa, só dígitos com DDI. */
+  whatsapp: '5551997875096',
+  phoneDisplay: '(51) 99787-5096',
+  instagram: 'https://www.instagram.com/strikeberlinsl/',
+  instagramHandle: '@strikeberlinsl',
+  /** Reserva online (Eleven Tickets). O link recebe UTM/gclid/fbclid no clique. */
+  reservationUrl: 'https://eleventickets.com/strike-berlin/strike-berlin',
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Strike+Berlin+Av.+Jo%C3%A3o+Corr%C3%AAa+1008+S%C3%A3o+Leopoldo+RS',
+  mapsEmbed: 'https://www.google.com/maps?q=Strike+Berlin,+Av.+Jo%C3%A3o+Corr%C3%AAa,+1008,+S%C3%A3o+Leopoldo+-+RS&output=embed',
+  reviewsUrl: 'https://www.google.com/maps/search/?api=1&query=Strike+Berlin+S%C3%A3o+Leopoldo',
+  rating: { value: 4.5, count: 1200 },
+  /**
+   * Horário de funcionamento. Vazio = o site manda consultar no WhatsApp.
+   * ⚠️ A CONFIRMAR com a Roseli: Google e diretórios mostram horários diferentes.
+   * Ex.: [{ days: 'Terça a sábado', hours: '18h à 1h' }]
+   */
+  hours: [] as Array<{ days: string; hours: string }>,
+  entryFee: 'R$ 10 por pessoa, com 1 água 500 ml de cortesia',
+} as const
+
+export const WHATSAPP_TEXT = {
+  default: 'Oi! Vim pelo site e quero reservar uma pista no Strike.',
+  aniversario: 'Oi! Vim pelo site e quero fazer um aniversário no Strike.',
+  empresas: 'Oi! Vim pelo site e quero uma proposta de confraternização para a minha empresa.',
+  vr: 'Oi! Vim pelo site e quero saber da realidade virtual.',
+  pacotes: 'Oi! Vim pelo site e quero saber dos pacotes.',
+  duvida: 'Oi! Vim pelo site e tenho uma dúvida.',
+} as const
+
+export type WhatsAppContext = keyof typeof WHATSAPP_TEXT
+
+export function whatsappHref(text: string = WHATSAPP_TEXT.default): string {
+  return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`
+}
+
+export const NAV = [
+  { href: '/#atracoes', label: 'Atrações' },
+  { href: '/pacotes', label: 'Pacotes' },
+  { href: '/aniversario', label: 'Aniversários' },
+  { href: '/empresas', label: 'Empresas' },
+  { href: '/realidade-virtual', label: 'Realidade virtual' },
+] as const
+
+export const fullAddress = `${SITE.address.street} · ${SITE.address.district} · ${SITE.address.city}/${SITE.address.state}`
