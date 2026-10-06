@@ -5,7 +5,7 @@
  *   - pista avulsa: eleventickets.com/strike-berlin/strike-berlin (1 hora, sem taxa)
  */
 import { describe, expect, it } from 'vitest'
-import { LANE_FEE_PCT, LANE_PRICES, PACKAGES, PEOPLE_PER_LANE } from '@/content/packages'
+import { LANE_FEE_PCT, LANE_PRICES, PACKAGES, PEOPLE_PER_LANE, priceBreakdown } from '@/content/packages'
 
 const CONFERIDO = {
   'pista-1h': { semana: [198, 169], sexta: [218, 189], sabado: [248, 209] },
@@ -35,6 +35,19 @@ describe('preços conferidos (05/10/2026)', () => {
     for (const p of PACKAGES) {
       const refris = p.items.map((it) => /(\d+) refris/.exec(it)?.[1]).find(Boolean)
       expect(Number(refris), `${p.id}: ${p.items.join(' | ')}`).toBe(p.foodFor)
+    }
+  })
+
+  it('o "de" do site atual = 1 pista no preço do Eleven Tickets + itens de valor fixo', () => {
+    // Se isto quebrar, o site atual ou o Eleven Tickets mudou preço: confira as duas fontes.
+    const extras = { 'pista-1h': 119, 'pista-2h': 149, festa: 395, burger: 558 } as const
+    for (const p of PACKAGES) {
+      for (const day of ['semana', 'sexta', 'sabado'] as const) {
+        const b = priceBreakdown(p, day)
+        expect(b.extras, `${p.id} ${day}`).toBe(extras[p.id as keyof typeof extras])
+        expect(b.lane + b.extras).toBe(p.prices[day].from)
+        expect(b.saving).toBeGreaterThan(0)
+      }
     }
   })
 

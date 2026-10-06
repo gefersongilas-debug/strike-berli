@@ -29,6 +29,10 @@ export interface Package {
    * sai da quantidade de refris do próprio pacote (o teste confere).
    */
   foodFor: number
+  /** Horas de boliche (1 pista). Com o preço da pista do Eleven Tickets, explica o "de". */
+  hours: number
+  /** Como o card chama o que vem além da pista. */
+  extrasLabel: string
   highlight?: boolean
   /** Selo do card. Só use texto que seja fato (não "mais vendido" sem dado). */
   badge?: string
@@ -46,6 +50,8 @@ export const PACKAGES: Package[] = [
       sabado: { from: 248, to: 209 },
     },
     foodFor: 4,
+    hours: 1,
+    extrasLabel: 'Fritas, bebida e realidade virtual',
   },
   {
     id: 'pista-2h',
@@ -58,6 +64,8 @@ export const PACKAGES: Package[] = [
       sabado: { from: 407, to: 339 },
     },
     foodFor: 6,
+    hours: 2,
+    extrasLabel: 'Fritas, bebida e realidade virtual',
   },
   {
     id: 'festa',
@@ -77,6 +85,8 @@ export const PACKAGES: Package[] = [
       sabado: { from: 653, to: 549 },
     },
     foodFor: 10,
+    hours: 2,
+    extrasLabel: 'Salgados, doces, bebida, fichas, VR e 2 entradas',
     highlight: true,
     badge: 'Ideal para festa',
   },
@@ -98,6 +108,8 @@ export const PACKAGES: Package[] = [
       sabado: { from: 816, to: 699 },
     },
     foodFor: 10,
+    hours: 2,
+    extrasLabel: 'Hambúrgueres, fritas, bebida, fichas, VR e 2 entradas',
   },
 ]
 
@@ -106,6 +118,17 @@ export const LANE_PRICES: Record<DayKey, number> = { semana: 79, sexta: 99, saba
 export const LANE_FEE_PCT = 10
 export const PEOPLE_PER_LANE = 12
 export const LANES = 4
+
+/**
+ * Quebra do preço "de": a pista (preço do Eleven Tickets × horas) + o valor cheio dos
+ * itens. O valor dos itens não muda com o dia — o teste confere —, o que mostra que o
+ * "de" do site atual é exatamente 1 pista + itens.
+ */
+export function priceBreakdown(p: Package, day: DayKey) {
+  const lane = LANE_PRICES[day] * p.hours
+  const extras = p.prices[day].from - lane
+  return { lane, extras, separate: p.prices[day].from, pack: p.prices[day].to, saving: p.prices[day].from - p.prices[day].to }
+}
 
 export function brl(n: number): string {
   return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
