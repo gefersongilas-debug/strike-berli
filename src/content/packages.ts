@@ -24,11 +24,6 @@ export interface Package {
   items: string[]
   /** Preço cheio → preço do pacote, por dia. */
   prices: Record<DayKey, { from: number; to: number }>
-  /**
-   * Para quantas pessoas rendem a comida e a bebida. As fontes não dizem; o número
-   * sai da quantidade de refris do próprio pacote (o teste confere).
-   */
-  foodFor: number
   /** Horas de boliche (1 pista). Com o preço da pista do Eleven Tickets, explica o "de". */
   hours: number
   /** Como o card chama o que vem além da pista. */
@@ -49,7 +44,6 @@ export const PACKAGES: Package[] = [
       sexta: { from: 218, to: 189 },
       sabado: { from: 248, to: 209 },
     },
-    foodFor: 4,
     hours: 1,
     extrasLabel: 'Fritas, bebida e realidade virtual',
   },
@@ -63,7 +57,6 @@ export const PACKAGES: Package[] = [
       sexta: { from: 347, to: 279 },
       sabado: { from: 407, to: 339 },
     },
-    foodFor: 6,
     hours: 2,
     extrasLabel: 'Fritas, bebida e realidade virtual',
   },
@@ -84,7 +77,6 @@ export const PACKAGES: Package[] = [
       sexta: { from: 593, to: 499 },
       sabado: { from: 653, to: 549 },
     },
-    foodFor: 10,
     hours: 2,
     extrasLabel: 'Salgados, doces, bebida, fichas, VR e 2 entradas',
     highlight: true,
@@ -107,7 +99,6 @@ export const PACKAGES: Package[] = [
       sexta: { from: 756, to: 649 },
       sabado: { from: 816, to: 699 },
     },
-    foodFor: 10,
     hours: 2,
     extrasLabel: 'Hambúrgueres, fritas, bebida, fichas, VR e 2 entradas',
   },

@@ -31,10 +31,10 @@ describe('preços conferidos (05/10/2026)', () => {
     expect(festa.items.join(' | ')).toMatch(/2 entradas cortesia/)
   })
 
-  it('"comida e bebida para N" é a quantidade de refris do próprio pacote', () => {
+  it('nenhum pacote promete "para N pessoas" na comida (as fontes não dizem)', () => {
     for (const p of PACKAGES) {
-      const refris = p.items.map((it) => /(\d+) refris/.exec(it)?.[1]).find(Boolean)
-      expect(Number(refris), `${p.id}: ${p.items.join(' | ')}`).toBe(p.foodFor)
+      expect(p).not.toHaveProperty('foodFor')
+      for (const it of p.items) expect(it).not.toMatch(/para \d+ pessoas/)
     }
   })
 

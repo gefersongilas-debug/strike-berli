@@ -53,6 +53,10 @@ Capturas dos outros dias: [quinta 08/10](fontes/3-eleventickets-quinta-08-10.jpg
 
 ## 3. Por que o pacote custa mais que a pista — e para quantas pessoas
 
+> **Para quantas pessoas a comida rende, nenhuma fonte diz.** A Pista 1 hora traz **uma**
+> fritas de 500 g e "1,5 L de chopp **ou** 4 refri lata" — não dá para afirmar "para 4".
+> Por isso o card mostra só as quantidades do pacote, sem número de pessoas na comida.
+
 **O preço "de" de cada pacote é exatamente 1 pista no preço do Eleven Tickets + um valor
 fixo dos itens.** A conta fecha nos três dias, o que mostra que cada pacote é **1 pista**:
 
@@ -73,7 +77,7 @@ economiza. Ex.: Pista 1 hora de segunda a quinta = R$ 79 + R$ 119 = R$ 198 separ
 |---|---|
 | "**1 pista** por 1 h / 2 h" | **Conta acima:** o "de" é sempre 1 pista + itens. |
 | "até **12** jogando" | **Fonte:** regra do Eleven Tickets (12 por pista). |
-| "Comida e bebida para **4 / 6 / 10 / 10**" | **Conta nossa:** quantidade de refris do pacote (4, 6, 10, 10). Nenhuma fonte diz para quantas pessoas é. |
+| "Entrada à parte: R$ 10 por pessoa" | **Fonte:** regra do Eleven Tickets; "2 entradas cortesia" vem do item do combo. |
 | Valor dos itens (R$ 119, 149, 395, 558) | **Conta nossa:** "de" do site atual − pista do Eleven Tickets. |
 | "50% antecipado" | **Fonte:** FAQ do site atual. |
 
@@ -85,5 +89,5 @@ economiza. Ex.: Pista 1 hora de segunda a quinta = R$ 79 + R$ 119 = R$ 198 separ
 - A **oferta de doce extra** do Dia das Crianças: veio do pedido do cliente, sem
   quantidade nem validade definidas ainda.
 
-**A confirmar com a Roseli:** para quantas pessoas ela vende cada pacote (a pista recebe até
-12; a comida rende pelo número de refris); quantidade e validade do doce extra.
+**A confirmar com a Roseli:** para quantas pessoas ela indica cada pacote (a pista recebe
+até 12; a comida, nenhuma fonte diz); quantidade e validade do doce extra.

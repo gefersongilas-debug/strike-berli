@@ -3,7 +3,7 @@
  * Pacotes com seletor de dia. Trocar o dia anima os preços; o botão de cada
  * pacote abre o WhatsApp já dizendo qual pacote e qual dia.
  */
-import { Check, Users, Utensils } from 'lucide-react'
+import { Check, Ticket, Users } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { DAYS, LANE_FEE_PCT, LANE_PRICES, PACKAGES, PEOPLE_PER_LANE, brl, priceBreakdown, type DayKey } from '@/content/packages'
 import { MOTION_OK, gsap, useGSAP } from '@/components/motion/gsap'
@@ -105,9 +105,10 @@ export function Packages({
                   </span>
                 </li>
                 <li>
-                  <Utensils size={16} aria-hidden="true" />
+                  <Ticket size={16} aria-hidden="true" />
                   <span>
-                    Comida e bebida para <strong>{p.foodFor}</strong>
+                    Entrada à parte: <strong>R$ 10</strong> por pessoa
+                    {p.items.some((it) => /entradas cortesia/.test(it)) ? ' (2 já vêm no pacote)' : ''}
                   </span>
                 </li>
               </ul>
@@ -158,8 +159,8 @@ export function Packages({
         })}
       </div>
       <p className="pkgs__note">
-        Cada pacote é para 1 pista, que recebe até {PEOPLE_PER_LANE} pessoas jogando. A comida e a bebida rendem para o número
-        indicado no card, pela quantidade do pacote. Grupo maior? Some pacotes ou peça uma proposta. A entrada é à parte:
+        Cada pacote é para 1 pista, que recebe até {PEOPLE_PER_LANE} pessoas jogando. A comida e a bebida são as
+        quantidades listadas em cada pacote; para grupo maior, o atendimento ajusta pelo WhatsApp. A entrada é à parte:
         R$ 10 por pessoa, com água; menores de 9 anos não pagam e os combos trazem 2 entradas cortesia. A reserva pelo
         WhatsApp é confirmada com 50% antecipado.
       </p>
