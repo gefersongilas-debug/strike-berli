@@ -51,18 +51,35 @@ Capturas dos outros dias: [quinta 08/10](fontes/3-eleventickets-quinta-08-10.jpg
 [sexta 30/10](fontes/4-eleventickets-sexta-30-10.jpg) ·
 [sábado 31/10](fontes/5-eleventickets-sabado-31-10.jpg).
 
-## 3. "Para quantas pessoas?" — o que é fonte e o que é conta nossa
+## 3. Por que o pacote custa mais que a pista — e para quantas pessoas
 
-Nenhuma das duas fontes diz para quantas pessoas é cada pacote. No card do site novo:
+> **Para quantas pessoas a comida rende, nenhuma fonte diz.** A Pista 1 hora traz **uma**
+> fritas de 500 g e "1,5 L de chopp **ou** 4 refri lata" — não dá para afirmar "para 4".
+> Por isso o card mostra só as quantidades do pacote, sem número de pessoas na comida.
+
+**O preço "de" de cada pacote é exatamente 1 pista no preço do Eleven Tickets + um valor
+fixo dos itens.** A conta fecha nos três dias, o que mostra que cada pacote é **1 pista**:
+
+| Pacote | "De" (site atual) seg / sex / sáb | Pista no Eleven Tickets | Itens (valor fixo) |
+|---|---|---|---|
+| Pista 1 hora | 198 / 218 / 248 | 1 h: 79 / 99 / 129 | **R$ 119** (fritas, bebida e VR) |
+| Pista 2 horas | 307 / 347 / 407 | 2 h: 158 / 198 / 258 | **R$ 149** (fritas, bebida e VR) |
+| Combo Festa | 553 / 593 / 653 | 2 h: 158 / 198 / 258 | **R$ 395** (salgados, doces, bebida, fichas, VR, 2 entradas) |
+| Combo Burger | 716 / 756 / 816 | 2 h: 158 / 198 / 258 | **R$ 558** (hambúrgueres, fritas, bebida, fichas, VR, 2 entradas) |
+
+Por isso cada card mostra a conta: **pista + itens = "separado sairia"**, e quanto o pacote
+economiza. Ex.: Pista 1 hora de segunda a quinta = R$ 79 + R$ 119 = R$ 198 separado, ou
+**R$ 169 no pacote** (economia de R$ 29). O teste `precos.test.ts` confere essa conta.
 
 ![Cards no site novo](fontes/6-site-novo-cards.jpg)
 
 | No card | De onde vem |
 |---|---|
-| "Até **12** jogando na pista" | **Fonte:** regra do Eleven Tickets (12 por pista). |
-| "Comida e bebida para **4 / 6 / 10 / 10**" | **Conta nossa:** a quantidade de refris do próprio pacote (4, 6, 10, 10). O teste confere que o número bate com os itens. |
-| "1 pista" | **Conta nossa:** o pacote traz "1 hora" ou "2 horas de boliche", sem dizer quantas pistas; lemos como 1 pista. |
-| "50% antecipado" | **Fonte:** FAQ do site atual ("solicitamos um pagamento antecipado de 50% do valor"). |
+| "**1 pista** por 1 h / 2 h" | **Conta acima:** o "de" é sempre 1 pista + itens. |
+| "até **12** jogando" | **Fonte:** regra do Eleven Tickets (12 por pista). |
+| "Entrada à parte: R$ 10 por pessoa" | **Fonte:** regra do Eleven Tickets; "2 entradas cortesia" vem do item do combo. |
+| Valor dos itens (R$ 119, 149, 395, 558) | **Conta nossa:** "de" do site atual − pista do Eleven Tickets. |
+| "50% antecipado" | **Fonte:** FAQ do site atual. |
 
 ## 4. O que é texto nosso (não está nas fontes)
 
@@ -72,5 +89,5 @@ Nenhuma das duas fontes diz para quantas pessoas é cada pacote. No card do site
 - A **oferta de doce extra** do Dia das Crianças: veio do pedido do cliente, sem
   quantidade nem validade definidas ainda.
 
-**A confirmar com a Roseli:** se cada pacote é mesmo para 1 pista e para quantas pessoas
-ela vende cada um; quantidade e validade do doce extra.
+**A confirmar com a Roseli:** para quantas pessoas ela indica cada pacote (a pista recebe
+até 12; a comida, nenhuma fonte diz); quantidade e validade do doce extra.

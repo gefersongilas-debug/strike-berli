@@ -3,14 +3,23 @@
  * Pacotes com seletor de dia. Trocar o dia anima os preços; o botão de cada
  * pacote abre o WhatsApp já dizendo qual pacote e qual dia.
  */
-import { Check, Users, Utensils } from 'lucide-react'
+import { Check, Ticket, Users } from 'lucide-react'
 import { useRef, useState } from 'react'
-import { DAYS, PACKAGES, PEOPLE_PER_LANE, brl, type DayKey } from '@/content/packages'
+import { DAYS, LANE_FEE_PCT, LANE_PRICES, PACKAGES, PEOPLE_PER_LANE, brl, priceBreakdown, type DayKey } from '@/content/packages'
 import { MOTION_OK, gsap, useGSAP } from '@/components/motion/gsap'
-import { WhatsAppButton } from '@/components/ui/Actions'
+import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
 import { trackEvent } from '@/components/tracking/track'
 
-export function Packages({ only, tone = 'dark' }: { only?: string[]; tone?: 'dark' | 'cream' }) {
+export function Packages({
+  only,
+  tone = 'dark',
+  showLane = !only,
+}: {
+  only?: string[]
+  tone?: 'dark' | 'cream'
+  /** Faixa "Só a pista" acima dos pacotes, para comparar. */
+  showLane?: boolean
+}) {
   const [day, setDay] = useState<DayKey>('semana')
   const scope = useRef<HTMLDivElement>(null)
   const list = only ? PACKAGES.filter((p) => only.includes(p.id)) : PACKAGES
@@ -29,7 +38,7 @@ export function Packages({ only, tone = 'dark' }: { only?: string[]; tone?: 'dar
           { yPercent: 70, opacity: 0 },
           { yPercent: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: 'back.out(2.2)', overwrite: true },
         )
-        gsap.fromTo('.pkg__from', { opacity: 0 }, { opacity: 1, duration: 0.4, overwrite: true })
+        gsap.fromTo('.pkg__calc dd, .lane-only__price', { opacity: 0 }, { opacity: 1, duration: 0.4, overwrite: true })
       })
     },
     { scope, dependencies: [day] },
@@ -60,9 +69,28 @@ export function Packages({ only, tone = 'dark' }: { only?: string[]; tone?: 'dar
         <span className="pkgs__toggle-hint">{day === 'semana' ? 'Melhor preço da semana' : 'Fim de semana lota: reserve antes'}</span>
       </div>
 
+      {showLane && (
+        <div className="lane-only">
+          <div>
+            <p className="lane-only__kicker">Só quer jogar?</p>
+            <p className="lane-only__title">
+              Só a pista: <strong className="lane-only__price">{brl(LANE_PRICES[day])}</strong> a hora
+            </p>
+            <p className="lane-only__text">
+              1 pista para até {PEOPLE_PER_LANE} pessoas, sem comida e bebida, reservando online ({dayLabel.toLowerCase()},
+              mais {LANE_FEE_PCT}% de taxa do site). Os pacotes abaixo são essa mesma pista com comida, bebida e
+              realidade virtual, mais baratos do que comprar tudo separado.
+            </p>
+          </div>
+          <ReserveButton id="pacotes-so-pista" variant="secondary">
+            Reservar só a pista
+          </ReserveButton>
+        </div>
+      )}
+
       <div className="pkgs__grid" data-stagger>
         {list.map((p) => {
-          const price = p.prices[day]
+          const b = priceBreakdown(p, day)
           return (
             <article key={p.id} className={`pkg${p.highlight ? ' pkg--hot' : ''}`} id={`pacote-${p.id}`}>
               {p.badge && <span className="pkg__badge">{p.badge}</span>}
@@ -72,23 +100,45 @@ export function Packages({ only, tone = 'dark' }: { only?: string[]; tone?: 'dar
                 <li>
                   <Users size={16} aria-hidden="true" />
                   <span>
-                    Até <strong>{PEOPLE_PER_LANE}</strong> jogando na pista
+                    <strong>1 pista</strong> por {p.hours === 1 ? '1 hora' : `${p.hours} horas`}, até {PEOPLE_PER_LANE}{' '}
+                    jogando
                   </span>
                 </li>
                 <li>
-                  <Utensils size={16} aria-hidden="true" />
+                  <Ticket size={16} aria-hidden="true" />
                   <span>
-                    Comida e bebida para <strong>{p.foodFor}</strong>
+                    Entrada à parte: <strong>R$ 10</strong> por pessoa
+                    {p.items.some((it) => /entradas cortesia/.test(it)) ? ' (2 já vêm no pacote)' : ''}
                   </span>
                 </li>
               </ul>
               <p className="pkg__price">
-                <span className="pkg__from">
-                  de <s>{brl(price.from)}</s> por
-                </span>
-                <strong data-price={p.id}>{brl(price.to)}</strong>
-                <span className="pkg__day">{dayLabel} · 1 pista · entrada à parte</span>
+                <strong data-price={p.id}>{brl(b.pack)}</strong>
+                <span className="pkg__day">{dayLabel} · entrada à parte</span>
               </p>
+              <dl className="pkg__calc" aria-label="Quanto sairia comprando separado">
+                <div>
+                  <dt>
+                    Pista {p.hours === 1 ? '1 hora' : `${p.hours} horas`}
+                    <small>preço do site de reservas</small>
+                  </dt>
+                  <dd>{brl(b.lane)}</dd>
+                </div>
+                <div>
+                  <dt>{p.extrasLabel}</dt>
+                  <dd>{brl(b.extras)}</dd>
+                </div>
+                <div className="pkg__calc-total">
+                  <dt>Separado sairia</dt>
+                  <dd>
+                    <s>{brl(b.separate)}</s>
+                  </dd>
+                </div>
+                <div className="pkg__calc-save">
+                  <dt>No pacote você economiza</dt>
+                  <dd>{brl(b.saving)}</dd>
+                </div>
+              </dl>
               <ul className="pkg__items">
                 {p.items.map((it) => (
                   <li key={it}>
@@ -109,8 +159,8 @@ export function Packages({ only, tone = 'dark' }: { only?: string[]; tone?: 'dar
         })}
       </div>
       <p className="pkgs__note">
-        Cada pacote é para 1 pista, que recebe até {PEOPLE_PER_LANE} pessoas jogando. A comida e a bebida rendem para o número
-        indicado no card, pela quantidade do pacote. Grupo maior? Some pacotes ou peça uma proposta. A entrada é à parte:
+        Cada pacote é para 1 pista, que recebe até {PEOPLE_PER_LANE} pessoas jogando. A comida e a bebida são as
+        quantidades listadas em cada pacote; para grupo maior, o atendimento ajusta pelo WhatsApp. A entrada é à parte:
         R$ 10 por pessoa, com água; menores de 9 anos não pagam e os combos trazem 2 entradas cortesia. A reserva pelo
         WhatsApp é confirmada com 50% antecipado.
       </p>
