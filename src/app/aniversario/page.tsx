@@ -1,7 +1,7 @@
 import { Baby, Cake, Gamepad2, Glasses, Sparkles, Utensils } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { CtaBand, FaqSection, LeadSection, PageHero, SectionHead, Visit } from '@/components/sections/Blocks'
+import { CtaBand, FaqSection, WhatsAppSection, PageHero, SectionHead, Visit } from '@/components/sections/Blocks'
 import { Packages } from '@/components/sections/Packages'
 import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
 import { UntilDate } from '@/components/ui/UntilDate'
@@ -102,9 +102,8 @@ export default function Aniversario() {
         </div>
       </section>
 
-      <LeadSection
-        page="aniversario"
-        defaultType="Aniversário infantil"
+      <WhatsAppSection
+        context="aniversario"
         eyebrow="Monte a festa"
         title="Conta a data. A gente cuida do resto."
         lead="Diz quantas crianças e adultos vêm e o dia que você pensou. O atendimento responde pelo WhatsApp com pacote, horário e valor."

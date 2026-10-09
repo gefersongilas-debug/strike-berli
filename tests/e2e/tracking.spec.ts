@@ -26,12 +26,6 @@ function dataLayer(page: Page) {
   )
 }
 
-async function fillLead(page: Page, phone = '(11) 99999-8888') {
-  await page.getByLabel('Nome').fill('Teste E2E')
-  await page.getByLabel('E-mail').fill('e2e@example.com')
-  await page.getByLabel('WhatsApp').fill(phone)
-}
-
 // ---------------------------------------------------------------------------
 // Modo direct
 // ---------------------------------------------------------------------------
@@ -66,34 +60,6 @@ test('@direct cookies first-party gravados pelo servidor a partir da URL', async
   expect(JSON.parse(decodeURIComponent(cookies.trk_ft))).toMatchObject({ utm_source: 'facebook' })
 })
 
-test('@direct Lead: /api/lead, pixel e Google Ads com o mesmo event_id', async ({ page }) => {
-  await stubExternal(page)
-  await page.goto('/?gclid=Cj0_e2e')
-  await fillLead(page)
-
-  const leadReq = page.waitForRequest((r) => r.url().endsWith('/api/lead'))
-  const leadRes = page.waitForResponse((r) => r.url().endsWith('/api/lead'))
-  await page.getByRole('button', { name: /pedir proposta/i }).click()
-  const sent = (await leadReq).postDataJSON()
-  expect((await leadRes).status()).toBe(200)
-  await page.waitForURL('**/obrigado')
-  await expect(page.getByTestId('thank-you')).toBeVisible()
-
-  const q = await fbqQueue(page)
-  expect(q).toContainEqual(['track', 'Lead', { currency: 'BRL' }, { eventID: sent.eventId }])
-  expect(q.filter((c: unknown[]) => c[1] === 'Lead')).toHaveLength(1)
-
-  const dl = await dataLayer(page)
-  expect(dl).toContainEqual(['set', 'user_data', { email: 'e2e@example.com', phone_number: '+5511999998888' }])
-  expect(dl).toContainEqual([
-    'event',
-    'conversion',
-    expect.objectContaining({ send_to: 'AW-123456789/AbCdEfGhIjK12', transaction_id: sent.eventId }),
-  ])
-  expect(dl).toContainEqual(['event', 'generate_lead', expect.objectContaining({ event_id: sent.eventId })])
-  expect(dl.some((x: any) => typeof x?.event === 'string' && x.event.startsWith('trk_'))).toBe(false)
-})
-
 test('@direct Reservar: ReservationClick (personalizado) e link do Eleven Tickets com a origem', async ({ page, context }) => {
   await stubExternal(page)
   await context.route(/eleventickets\.com/, (route) => route.fulfill({ status: 200, body: 'ok' }))
@@ -116,14 +82,26 @@ test('@direct Reservar: ReservationClick (personalizado) e link do Eleven Ticket
   expect(q.some((c: unknown[]) => c[1] === 'InitiateCheckout')).toBe(false)
 })
 
-test('@direct telefone inválido: erro no campo e nenhum Lead disparado', async ({ page }) => {
+test('@direct seção de reserva: WhatsApp com a mensagem pronta da página e Contact no pixel e na CAPI', async ({ page, context }) => {
   await stubExternal(page)
-  await page.goto('/')
-  await fillLead(page, '123')
-  await page.getByRole('button', { name: /pedir proposta/i }).click()
-  await expect(page.getByText(/Telefone inválido/)).toBeVisible()
-  expect((await fbqQueue(page)).some((c: unknown[]) => c[1] === 'Lead')).toBe(false)
-  expect(page.url()).not.toContain('/obrigado')
+  await context.route(/wa\.me|api\.whatsapp\.com|web\.whatsapp\.com/, (route) => route.fulfill({ status: 200, body: 'ok' }))
+  await page.goto('/aniversario')
+
+  expect(await page.locator('#proposta form').count()).toBe(0)
+  const btn = page.locator('#proposta [data-track=whatsapp]')
+  const href = new URL((await btn.getAttribute('href'))!)
+  expect(href.hostname).toBe('wa.me')
+  expect(href.searchParams.get('text')).toBe('Oi! Vim pelo site e quero reservar um aniversário no Strike.')
+
+  const trackReq = page.waitForRequest((r) => r.url().endsWith('/api/track') && r.postDataJSON()?.event === 'contact')
+  const popup = context.waitForEvent('page')
+  await btn.click()
+  const body = (await trackReq).postDataJSON()
+  await popup
+
+  const q = await fbqQueue(page)
+  expect(q).toContainEqual(['track', 'Contact', expect.objectContaining({ method: 'whatsapp', button: 'secao-whatsapp' }), { eventID: body.eventId }])
+  expect(q.some((c: unknown[]) => c[1] === 'Lead')).toBe(false)
 })
 
 test('@direct /api/tracking-health fechado sem token', async ({ request }) => {
@@ -150,23 +128,3 @@ test('@gtm carrega só o GTM; trk_page_view com o mesmo id da CAPI', async ({ pa
   expect(await page.locator('noscript').first().innerHTML()).toContain('ns.html?id=GTM-ABC1234')
 })
 
-test('@gtm Lead: trk_lead no dataLayer com o event_id do /api/lead', async ({ page }) => {
-  await stubExternal(page)
-  await page.goto('/')
-  await fillLead(page)
-
-  const leadReq = page.waitForRequest((r) => r.url().endsWith('/api/lead'))
-  await page.getByRole('button', { name: /pedir proposta/i }).click()
-  const sent = (await leadReq).postDataJSON()
-  await page.waitForURL('**/obrigado')
-
-  const dl = await dataLayer(page)
-  const leads = dl.filter((x: any) => x?.event === 'trk_lead')
-  expect(leads).toHaveLength(1)
-  expect(leads[0]).toMatchObject({
-    event_id: sent.eventId,
-    meta_event_name: 'Lead',
-    ga4_event_name: 'generate_lead',
-    user_data: { email: 'e2e@example.com', phone_number: '+5511999998888' },
-  })
-})

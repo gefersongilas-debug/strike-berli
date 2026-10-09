@@ -1,7 +1,7 @@
 import { CalendarDays, Ghost, Glasses, Moon, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 import { Bats } from '@/components/motion/SeasonDecor'
-import { CtaBand, FaqSection, LeadSection, SectionHead, Visit } from '@/components/sections/Blocks'
+import { CtaBand, FaqSection, WhatsAppSection, SectionHead, Visit } from '@/components/sections/Blocks'
 import { Packages } from '@/components/sections/Packages'
 import { SeasonHero } from '@/components/sections/SeasonHero'
 import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
@@ -94,9 +94,8 @@ export default function Halloween() {
         </div>
       </section>
 
-      <LeadSection
-        page="halloween"
-        defaultType="Halloween"
+      <WhatsAppSection
+        context="halloween"
         eyebrow="Halloween em grupo"
         title="Vai trazer a turma toda? Monta a noite com a gente."
         lead="Conta quantas pessoas vêm e o atendimento responde pelo WhatsApp com pistas, combos e valor."

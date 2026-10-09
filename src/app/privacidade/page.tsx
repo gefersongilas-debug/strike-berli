@@ -23,11 +23,11 @@ export default function Privacidade() {
 
         <h2>Dados que você envia</h2>
         <p>
-          Quando você pede uma proposta, recebemos nome, WhatsApp, e-mail (se
-          informado), o tipo de evento, a data e o número de pessoas. Usamos
-          esses dados para responder ao seu pedido e montar a proposta. Se você
-          marcar a opção de novidades, também podemos mandar promoções da casa —
-          e você pode pedir para parar a qualquer momento.
+          O site não tem formulário. Quando você chama a gente no WhatsApp,
+          recebemos o que você escreve na conversa (por exemplo, o dia e quantas
+          pessoas vêm) e o seu número, e usamos isso só para responder e fazer a
+          sua reserva ou proposta. Se quiser receber promoções da casa, é só
+          pedir na conversa, e você pode pedir para parar a qualquer momento.
         </p>
 
         <h2>Reservas</h2>

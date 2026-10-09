@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { CtaBand, FaqSection, LeadSection, PageHero, SectionHead } from '@/components/sections/Blocks'
+import { CtaBand, FaqSection, WhatsAppSection, PageHero, SectionHead } from '@/components/sections/Blocks'
 import { Packages } from '@/components/sections/Packages'
 import { FAQ_GERAL } from '@/content/faq'
 
@@ -27,7 +27,7 @@ export default function Pacotes() {
           <Packages />
         </div>
       </section>
-      <LeadSection page="pacotes" title="Grupo grande? A gente ajusta o pacote." />
+      <WhatsAppSection context="pacotes" title="Grupo grande? A gente ajusta o pacote." />
       <FaqSection items={FAQ_GERAL} id="faq-pacotes" />
       <CtaBand context="pacotes" />
     </>

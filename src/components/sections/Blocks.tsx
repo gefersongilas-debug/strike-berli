@@ -8,8 +8,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { STRUCTURE } from '@/content/attractions'
 import type { Faq } from '@/content/faq'
-import { SITE, type WhatsAppContext } from '@/content/site'
-import { LeadForm, type EVENT_TYPES } from '@/components/LeadForm'
+import { RULES, SITE, WHATSAPP_TEXT, type WhatsAppContext } from '@/content/site'
 import { DirectionsButton, PhoneLink, ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
 import { InstagramIcon, PinIcon } from '@/components/ui/BrandIcons'
 import { UntilDate } from '@/components/ui/UntilDate'
@@ -419,21 +418,25 @@ export function CtaBand({
 
 // ---------------------------------------------------------------------------
 
-export function LeadSection({
+/**
+ * Onde antes ficava o formulário de proposta: o pedido vai direto pelo WhatsApp,
+ * com a mensagem pronta da página ("Vim pelo site e quero reservar…"), ou a
+ * pessoa reserva a pista online. Mantém o id "proposta" dos botões que apontam
+ * para cá.
+ */
+export function WhatsAppSection({
   id = 'proposta',
   eyebrow = 'Evento em grupo',
   title = 'Vai juntar a galera? A gente monta a proposta.',
   lead = 'Conta o que você está pensando e o atendimento responde pelo WhatsApp com pacote, horário e valor.',
-  defaultType,
-  page,
+  context = 'default',
   bullets = ['Proposta personalizada, sem compromisso', 'Pacotes por pessoa ou por pista', 'Nota fiscal para empresa', 'Atendimento de gente, pelo WhatsApp'],
 }: {
   id?: string
   eyebrow?: string
   title?: string
   lead?: string
-  defaultType?: (typeof EVENT_TYPES)[number]
-  page: string
+  context?: WhatsAppContext
   bullets?: string[]
 }) {
   return (
@@ -453,8 +456,20 @@ export function LeadSection({
             ))}
           </ul>
         </div>
-        <div className="lead-sec__card">
-          <LeadForm page={page} defaultType={defaultType} />
+        <div className="lead-sec__card wa-card" data-reveal>
+          <p className="wa-card__label">Mensagem pronta</p>
+          <p className="wa-card__bubble">{WHATSAPP_TEXT[context]}</p>
+          <WhatsAppButton id="secao-whatsapp" size="lg" context={context} className="wa-card__btn">
+            Reservar pelo WhatsApp
+          </WhatsAppButton>
+          <p className="wa-card__fine">Abre o WhatsApp da Strike com essa mensagem. É só enviar e contar o dia e quantas pessoas vêm.</p>
+          <p className="wa-card__or">
+            <span>ou</span>
+          </p>
+          <ReserveButton id="secao-reserva" variant="secondary" className="wa-card__btn">
+            Reservar a pista online
+          </ReserveButton>
+          <p className="wa-card__fine">{RULES.onlineFreeEntry}</p>
         </div>
       </div>
     </section>

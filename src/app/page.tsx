@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Marquee } from '@/components/motion/Marquee'
 import { StrikeScene } from '@/components/motion/StrikeScene'
 import { Attractions } from '@/components/sections/Attractions'
-import { CtaBand, EventTypes, FaqSection, Gallery, LeadSection, Proof, SectionHead, Visit } from '@/components/sections/Blocks'
+import { CtaBand, EventTypes, FaqSection, Gallery, WhatsAppSection, Proof, SectionHead, Visit } from '@/components/sections/Blocks'
 import { HowToBook } from '@/components/sections/HowToBook'
 import { Packages } from '@/components/sections/Packages'
 import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
@@ -117,7 +117,7 @@ export default function Home() {
 
       <Gallery />
 
-      <LeadSection page="home" />
+      <WhatsAppSection />
 
       <FaqSection items={FAQ_GERAL} />
 
