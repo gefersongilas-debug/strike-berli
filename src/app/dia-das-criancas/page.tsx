@@ -1,7 +1,7 @@
 import { Baby, CalendarDays, Gamepad2, Glasses, Sparkles, Ticket, Utensils } from 'lucide-react'
 import type { Metadata } from 'next'
 import { CandyRain } from '@/components/motion/SeasonDecor'
-import { CtaBand, FaqSection, LeadSection, SectionHead, Visit } from '@/components/sections/Blocks'
+import { CtaBand, FaqSection, WhatsAppSection, SectionHead, Visit } from '@/components/sections/Blocks'
 import { Packages } from '@/components/sections/Packages'
 import { SeasonHero } from '@/components/sections/SeasonHero'
 import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
@@ -150,9 +150,8 @@ export default function DiaDasCriancas() {
         </div>
       </section>
 
-      <LeadSection
-        page="dia-das-criancas"
-        defaultType="Dia das Crianças"
+      <WhatsAppSection
+        context="diaCriancas"
         eyebrow="Monte a festa"
         title="Conta quantas crianças vêm. A gente cuida do resto."
         lead="O atendimento responde pelo WhatsApp com pacote, horário, valor e o doce extra."

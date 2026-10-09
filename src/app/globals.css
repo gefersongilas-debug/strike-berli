@@ -1699,7 +1699,7 @@ a.attr-card:hover .attr-card__media svg {
   text-align: center;
 }
 
-/* --- Formulário ---------------------------------------------------------------- */
+/* --- Reserva pelo WhatsApp (antes formulário) ------------------------------------ */
 .lead-sec__grid {
   display: grid;
   gap: 48px;
@@ -1742,103 +1742,55 @@ a.attr-card:hover .attr-card__media svg {
     0 40px 80px -40px rgb(21 19 27 / 0.35),
     0 0 0 1px var(--line-dark);
 }
-.lead-form {
+.wa-card {
   display: grid;
-  gap: 18px;
+  gap: 14px;
   color: var(--text-dark);
 }
-.lead-form__row {
-  display: grid;
-  gap: 18px;
-}
-@media (min-width: 640px) {
-  .lead-form__row {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-.field {
-  display: grid;
-  gap: 7px;
-}
-.field > span:first-child {
-  font-size: 0.86rem;
-  font-weight: 800;
-}
-.field em {
-  font-style: normal;
-  font-weight: 500;
-  color: var(--muted-dark);
-}
-.field input,
-.field select,
-.field textarea {
-  width: 100%;
-  font: inherit;
-  font-size: 1rem;
-  color: var(--text-dark);
-  background: var(--paper);
-  border: 1.5px solid var(--line-dark);
-  border-radius: var(--radius-sm);
-  padding: 0.9em 1em;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s,
-    background-color 0.2s;
-  appearance: none;
-  -webkit-appearance: none;
-}
-.field select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2315131b' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  background-size: 18px;
-  padding-right: 44px;
-}
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  outline: none;
-  border-color: var(--text-dark);
-  background-color: var(--white);
-  box-shadow: 0 0 0 4px rgb(250 200 56 / 0.5);
-}
-.field textarea {
-  resize: vertical;
-  min-height: 96px;
-}
-.field__error {
-  color: var(--red);
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-.field__error--box {
-  padding: 12px 14px;
-  border-radius: var(--radius-sm);
-  background: rgb(219 28 40 / 0.08);
-}
-.check {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  font-size: 0.92rem;
-  color: var(--muted-dark);
-  cursor: pointer;
-}
-.check input {
-  flex: none;
-  width: 20px;
-  height: 20px;
-  margin: 2px 0 0;
-  accent-color: var(--red);
-}
-.lead-form__submit {
-  width: 100%;
-  margin-top: 4px;
-}
-.lead-form__fine {
+.wa-card__label {
   font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-dark);
+}
+/* Balão de mensagem enviada, como no WhatsApp */
+.wa-card__bubble {
+  position: relative;
+  justify-self: end;
+  max-width: 34ch;
+  padding: 14px 18px;
+  border-radius: 18px 18px 4px 18px;
+  background: #d9fdd3;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+  box-shadow: 0 1px 0 rgb(21 19 27 / 0.12);
+}
+.wa-card__btn {
+  width: 100%;
+  justify-content: center;
+}
+.wa-card__fine {
+  font-size: 0.86rem;
   color: var(--muted-dark);
   text-align: center;
+}
+.wa-card__or {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted-dark);
+  text-transform: uppercase;
+}
+.wa-card__or::before,
+.wa-card__or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line-dark);
 }
 
 /* --- Dúvidas -------------------------------------------------------------------- */

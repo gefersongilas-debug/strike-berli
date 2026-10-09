@@ -1,7 +1,7 @@
 import { Beer, Mic, Receipt, Trophy, Users, Utensils } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { CtaBand, FaqSection, LeadSection, PageHero, SectionHead, Visit } from '@/components/sections/Blocks'
+import { CtaBand, FaqSection, WhatsAppSection, PageHero, SectionHead, Visit } from '@/components/sections/Blocks'
 import { Packages } from '@/components/sections/Packages'
 import { WhatsAppButton } from '@/components/ui/Actions'
 import { FAQ_EMPRESAS } from '@/content/faq'
@@ -95,9 +95,8 @@ export default function Empresas() {
         </div>
       </section>
 
-      <LeadSection
-        page="empresas"
-        defaultType="Confraternização de empresa"
+      <WhatsAppSection
+        context="empresas"
         eyebrow="Proposta para empresa"
         title="Manda o tamanho da equipe. A gente devolve a proposta."
         lead="Sem compromisso. O atendimento responde pelo WhatsApp com formato, horário e valor — com nota fiscal."

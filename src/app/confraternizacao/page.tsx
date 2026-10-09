@@ -1,7 +1,7 @@
 import { Briefcase, GraduationCap, Mic, Receipt, Users, Utensils } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { CtaBand, FaqSection, LeadSection, PageHero, SectionHead, Visit } from '@/components/sections/Blocks'
+import { CtaBand, FaqSection, WhatsAppSection, PageHero, SectionHead, Visit } from '@/components/sections/Blocks'
 import { GroupPlanner } from '@/components/sections/GroupPlanner'
 import { Packages } from '@/components/sections/Packages'
 import { WhatsAppButton } from '@/components/ui/Actions'
@@ -84,9 +84,8 @@ export default function Confraternizacao() {
         </div>
       </section>
 
-      <LeadSection
-        page="confraternizacao"
-        defaultType="Confraternização de grupo"
+      <WhatsAppSection
+        context="grupos"
         eyebrow="Proposta para o grupo"
         title="Manda o tamanho da turma. A gente devolve a proposta."
         lead="Sem compromisso. O atendimento responde pelo WhatsApp com pistas, horário, combos e valor."

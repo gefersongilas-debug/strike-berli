@@ -14,7 +14,7 @@ npm run dev                  # ou, da raiz do workspace: preview "strike-site" (
 
 | Rota | Para quê | Sitelink / campanha |
 |---|---|---|
-| `/` | Home: atrações, como reservar, pacotes, galeria, proposta, FAQ, mapa | Search ET / LP |
+| `/` | Home: atrações, como reservar, pacotes, galeria, WhatsApp, FAQ, mapa | Search ET / LP |
 | `/aniversario` | Aniversário infantil e Mês da Criança (selo some sozinho em 01/11) | "Aniversário Infantil", "Mês da Criança" |
 | `/empresas` | Confraternização e happy hour, com nota fiscal | "Confraternização" |
 | `/pacotes` | Os 4 pacotes com preço por dia (seg–qui, sexta, sábado) | "Pacotes Seg a Qui" |
@@ -22,7 +22,6 @@ npm run dev                  # ou, da raiz do workspace: preview "strike-site" (
 | `/dia-das-criancas` | Dia das Crianças com a oferta de doce extra (o bloco da oferta some depois de 12/10) | "Dia das Crianças" |
 | `/halloween` | Halloween, sexta 30 e sábado 31/10, com o preço da pista desses dias | "Halloween" |
 | `/confraternizacao` | Grupos grandes, com a calculadora de pistas (12 pessoas por pista, 4 pistas) | "Confraternização" |
-| `/obrigado` | Depois do formulário; oferece mandar o resumo no WhatsApp. **Não** dispara conversão | — |
 | `/privacidade` | LGPD e cookies | — |
 
 Conteúdo editável sem mexer em layout: `src/content/` (`site.ts` telefone, link de
@@ -43,7 +42,7 @@ teste quebra o build. Oferta nova só entra em `offers.ts` depois de confirmada 
 | Clique no **WhatsApp** / telefone | `Contact` | `contact` | `NEXT_PUBLIC_GOOGLE_ADS_CONTACT_LABEL` |
 | Clique em **Como chegar** | `FindLocation` | `directions_click` | — |
 | Troca de dia nos pacotes | `ViewContent` | `view_item` | — |
-| **Pedido de proposta** (formulário) | `Lead` | `generate_lead` | `NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL` (+ API, se configurada) |
+| ~~Pedido de proposta~~ (formulário saiu em 09/10/2026, ver abaixo) | `Lead` | `generate_lead` | `NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL` |
 
 Todo evento leva `button` (qual botão) e `page` (qual página) — dá para ver, por
 exemplo, se o "Reservar" do topo converte mais que o da barra fixa do celular.
@@ -58,9 +57,14 @@ exemplo, se o "Reservar" do topo converte mais que o da barra fixa do celular.
    (se tiver menos de 24 h) — `src/lib/tracking/outbound.ts`. É o que deixa o GA4 do
    Eleven Tickets (importado no Google Ads como compra) e o pixel atribuírem a reserva à
    campanha certa. Com o gtag ligado, o `_gl` também vai (`NEXT_PUBLIC_LINKER_DOMAINS`).
-3. **E-mail opcional** no formulário: o atendimento é pelo WhatsApp. O formulário pede
-   tipo de evento, data e pessoas, e o CRM recebe `fields.tipo`, `fields.data`,
-   `fields.dia_semana` (separa seg–qui), `fields.pessoas` e `fields.pagina`.
+3. **Sem formulário (desde 09/10/2026).** O pedido de proposta não ficava guardado
+   (`CRM_PROVIDER=none`), então a seção virou um bloco de WhatsApp
+   (`WhatsAppSection` em `src/components/sections/Blocks.tsx`): mostra a mensagem
+   pronta da página ("Oi! Vim pelo site e quero reservar…", textos em `WHATSAPP_TEXT`
+   no `site.ts`) e, ao lado, o Reservar online. O clique conta como `Contact` com
+   `button: secao-whatsapp`. O `/obrigado` saiu junto. O `/api/lead`, o adapter de CRM
+   e a ação de conversão do Google Ads continuam no código e na conta, sem uso: para
+   voltar o formulário, recupere o `LeadForm.tsx` do histórico do git e ligue um CRM.
 
 ## Produção (Vercel → Settings → Environment Variables)
 
@@ -96,9 +100,7 @@ KOMMO_FIELD_MAP={"tipo":ID,"data":ID,"pessoas":ID,"dia_semana":ID,"utm_source":I
 ```
 
 `npm run check:tracking:live` confere token, funil, etapa e campos, e lista os ids dos
-campos de UTM. Até lá, com `CRM_PROVIDER=none` o pedido **não fica guardado em lugar
-nenhum** (só a conversão dispara e a pessoa é convidada a mandar o resumo no WhatsApp) —
-use um webhook (Make → planilha/e-mail) como ponte se o formulário for ao ar antes do Kommo.
+campos de UTM. Só faz sentido se o formulário voltar (ver item 3 acima).
 
 ---
 

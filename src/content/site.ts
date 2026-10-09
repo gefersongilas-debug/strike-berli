@@ -55,13 +55,13 @@ export const RULES = {
 
 export const WHATSAPP_TEXT = {
   default: 'Oi! Vim pelo site e quero reservar uma pista no Strike.',
-  aniversario: 'Oi! Vim pelo site e quero fazer um aniversário no Strike.',
-  empresas: 'Oi! Vim pelo site e quero uma proposta de confraternização para a minha empresa.',
+  aniversario: 'Oi! Vim pelo site e quero reservar um aniversário no Strike.',
+  empresas: 'Oi! Vim pelo site e quero reservar uma confraternização para a minha empresa.',
   vr: 'Oi! Vim pelo site e quero saber da realidade virtual.',
-  pacotes: 'Oi! Vim pelo site e quero saber dos pacotes.',
+  pacotes: 'Oi! Vim pelo site e quero reservar um pacote no Strike.',
   diaCriancas: 'Oi! Vim pelo site e quero a oferta de Dia das Crianças com doce extra.',
   halloween: 'Oi! Vim pelo site e quero reservar para o Halloween no Strike.',
-  grupos: 'Oi! Vim pelo site e quero uma proposta de confraternização para um grupo.',
+  grupos: 'Oi! Vim pelo site e quero reservar para um grupo.',
   duvida: 'Oi! Vim pelo site e tenho uma dúvida.',
 } as const
 
