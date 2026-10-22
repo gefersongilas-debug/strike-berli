@@ -33,6 +33,20 @@ sazonais · `attractions.ts` · `faq.ts`).
 em 05/10/2026. `tests/unit/precos.test.ts` trava os valores: mudar preço sem atualizar o
 teste quebra o build. Oferta nova só entra em `offers.ts` depois de confirmada pelo cliente.
 
+## CTAs e tema sazonal
+
+- **Reservar é o CTA principal** (desde 22/10/2026). Topo, menu, barra fixa do celular,
+  rodapé, FAQ, Onde fica e faixa final só têm o Reservar. O **WhatsApp fica só onde combo
+  se fecha**: os pacotes (`Packages`), a seção de combos e grupos (`WhatsAppSection`,
+  `#proposta`) e a calculadora de grupos. Antes disso o site tinha ~30 botões de WhatsApp;
+  a versão anterior está na tag `site-antes-halloween-2026`.
+- **Tema de Halloween no site inteiro**, ligado sozinho entre `SEASON.halloween.from` e
+  `.until` (`src/content/offers.ts`) e desligado sozinho depois, sem deploy. O script do
+  `<head>` põe `is-halloween` no `<html>` (`src/lib/season-theme.ts`); o CSS troca a paleta
+  (amarelo vira laranja, azul vira roxo), a home ganha morcegos, a bola-abóbora e o texto de
+  Halloween (`data-season="halloween"` / `"default"`). Prévia: `?tema=halloween` ou
+  `?tema=normal`. Para o próximo ano, basta mudar as datas.
+
 ## O que é medido
 
 | Ação na página | Meta (pixel + CAPI, mesmo `event_id`) | GA4 | Google Ads (tag) |

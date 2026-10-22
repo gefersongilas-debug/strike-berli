@@ -2645,50 +2645,121 @@ a.attr-card:hover .attr-card__media svg {
   justify-self: start;
 }
 
-/* --- Tema Halloween (página /halloween) ------------------------------------- */
-.theme-halloween {
+/* --- Tema Halloween (página /halloween e, na janela de datas, o site inteiro) --- */
+:is(.theme-halloween, .is-halloween) {
   --hw-orange: #ff7a1a;
   --hw-purple: #7b3fe4;
 }
-.theme-halloween .accent,
-.theme-halloween .eyebrow:not(.eyebrow--dark),
-.theme-halloween .when__price,
-.theme-halloween .pkg__price strong,
-.theme-halloween .pkg__items svg,
-.theme-halloween .when__item > svg {
+:is(.theme-halloween, .is-halloween) .accent,
+:is(.theme-halloween, .is-halloween) .eyebrow:not(.eyebrow--dark),
+:is(.theme-halloween, .is-halloween) .when__price,
+:is(.theme-halloween, .is-halloween) .pkg__price strong,
+:is(.theme-halloween, .is-halloween) .pkg__items svg,
+:is(.theme-halloween, .is-halloween) .when__item > svg {
   color: var(--hw-orange);
 }
-.theme-halloween .btn--primary {
+:is(.theme-halloween, .is-halloween) .btn--primary {
   background: var(--hw-orange);
   color: #160800;
   box-shadow: 0 14px 36px -14px rgb(255 122 26 / 0.75);
 }
-.theme-halloween .btn--primary:hover {
+:is(.theme-halloween, .is-halloween) .btn--primary:hover {
   background: #ff9a4d;
 }
-.theme-halloween .pkgs__toggle button.is-on {
+:is(.theme-halloween, .is-halloween) .pkgs__toggle button.is-on {
   background: var(--hw-orange);
   border-color: var(--hw-orange);
 }
-.theme-halloween .section--night,
-.theme-halloween .visit {
+:is(.theme-halloween, .is-halloween) .section--night,
+:is(.theme-halloween, .is-halloween) .visit {
   background: #0e0818;
 }
-.theme-halloween .pkg,
-.theme-halloween .when__item {
+:is(.theme-halloween, .is-halloween) .pkg,
+:is(.theme-halloween, .is-halloween) .when__item {
   background: #1a0f2b;
 }
-.theme-halloween .pkg--hot,
-.theme-halloween .when__item--hot {
+:is(.theme-halloween, .is-halloween) .pkg--hot,
+:is(.theme-halloween, .is-halloween) .when__item--hot {
   border-color: var(--hw-orange);
   background: linear-gradient(160deg, #2a1546, #1a0f2b 70%);
 }
-.theme-halloween .why__icon {
+:is(.theme-halloween, .is-halloween) .why__icon {
   background: var(--hw-orange);
 }
-.theme-halloween .cta-band {
+:is(.theme-halloween, .is-halloween) .cta-band {
   background: var(--hw-orange);
 }
-.theme-halloween .eyebrow--dark {
+:is(.theme-halloween, .is-halloween) .eyebrow--dark {
   color: var(--hw-purple);
+}
+
+/* --- Tema Halloween no site inteiro -------------------------------------------
+   Ligado pela classe `is-halloween` no <html> (src/lib/season-theme.ts), que só
+   existe entre SEASON.halloween.from e .until. Fora da janela nada daqui vale. */
+html:not(.is-halloween) [data-season='halloween'],
+html.is-halloween [data-season='default'] {
+  display: none !important;
+}
+.is-halloween {
+  --night: #0e0818;
+  --night-2: #1a0f2b;
+  --night-3: #2a1546;
+  --neon: #7b3fe4;
+  --neon-2: #b48cff;
+  --yellow: #ff8a2a;
+  --yellow-2: #ffa95c;
+  --muted-light: #c9b8e0;
+}
+.is-halloween .site-header.is-scrolled {
+  background: rgb(14 8 24 / 0.86);
+}
+.is-halloween .hero__shade {
+  background:
+    radial-gradient(55% 50% at 85% 20%, rgb(255 122 26 / 0.26), transparent 70%),
+    radial-gradient(70% 60% at 10% 90%, rgb(123 63 228 / 0.38), transparent 70%),
+    linear-gradient(180deg, rgb(14 8 24 / 0.66) 0%, rgb(14 8 24 / 0.6) 45%, var(--night) 96%);
+}
+.is-halloween .hero__img {
+  filter: hue-rotate(150deg) saturate(1.2);
+}
+.is-halloween .hero__grid-lines {
+  background:
+    repeating-linear-gradient(90deg, rgb(255 122 26 / 0.22) 0 2px, transparent 2px 120px),
+    repeating-linear-gradient(0deg, rgb(123 63 228 / 0.16) 0 2px, transparent 2px 70px);
+}
+.is-halloween .page-hero__shade {
+  background:
+    radial-gradient(55% 60% at 85% 35%, rgb(123 63 228 / 0.36), transparent 70%),
+    radial-gradient(45% 50% at 5% 95%, rgb(255 122 26 / 0.24), transparent 70%),
+    linear-gradient(180deg, rgb(14 8 24 / 0.45), var(--night) 96%);
+}
+.is-halloween .page-hero__img img {
+  filter: hue-rotate(150deg) saturate(1.15);
+}
+.is-halloween .vr-hero {
+  background:
+    radial-gradient(50% 60% at 80% 40%, rgb(123 63 228 / 0.4), transparent 70%),
+    radial-gradient(40% 40% at 10% 90%, rgb(255 122 26 / 0.22), transparent 70%),
+    var(--night);
+}
+.is-halloween .btn--primary {
+  box-shadow: 0 14px 36px -14px rgb(255 122 26 / 0.8);
+}
+.is-halloween .season-pill:not(.season-pill--halloween):not(.season-pill--candy) {
+  background: rgb(255 122 26 / 0.12);
+  border-color: rgb(255 122 26 / 0.45);
+}
+.is-halloween .hero .bat {
+  opacity: 0.7;
+}
+@media (max-width: 767px) {
+  .is-halloween .hero .bat {
+    opacity: 0.45;
+  }
+}
+/* Parados (sem animação), os morcegos ficariam em cima do texto do topo. */
+@media (prefers-reduced-motion: reduce) {
+  .hero .season-decor {
+    display: none;
+  }
 }

@@ -2,7 +2,7 @@ import { Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Marquee } from '@/components/motion/Marquee'
-import { StrikeScene } from '@/components/motion/StrikeScene'
+import { HomeScene } from '@/components/motion/HomeScene'
 import { Attractions } from '@/components/sections/Attractions'
 import { CtaBand, EventTypes, FaqSection, Gallery, Proof, SectionHead, Visit } from '@/components/sections/Blocks'
 import { HowToBook } from '@/components/sections/HowToBook'
@@ -45,13 +45,18 @@ export default function Home() {
               strike.
             </span>
           </h1>
-          <p className="hero__lead" data-hero>
+          <p className="hero__lead" data-hero data-season="default">
             Boliche com telão interativo, realidade virtual, fliperama, sinuca, karaokê e gastrobar com chopp gelado. Pra
             família, pros amigos e pra firma.
           </p>
+          <p className="hero__lead" data-hero data-season="halloween">
+            Pista neon, realidade virtual, fliperama, karaokê e chopp gelado na semana mais assustadora do ano. Sexta 30 e
+            sábado 31/10 lotam rápido: garanta sua pista e, se quiser, vem fantasiado.
+          </p>
           <div className="btn-row" data-hero>
             <ReserveButton id="hero" size="lg">
-              Reservar minha pista
+              <span data-season="default">Reservar minha pista</span>
+              <span data-season="halloween">Reservar pro Halloween</span>
             </ReserveButton>
             <a href="#pacotes" className="btn btn--ghost btn--lg">
               <span>Ver combos</span>
@@ -93,7 +98,7 @@ export default function Home() {
           </div>
         </div>
 
-        <StrikeScene />
+        <HomeScene />
       </section>
 
       <Marquee items={['Boliche', 'Realidade virtual', 'Fliperama', 'Sinuca', 'Karaokê', 'Gastrobar', 'Chopp gelado']} />
