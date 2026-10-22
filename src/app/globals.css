@@ -2303,7 +2303,7 @@ a.attr-card:hover .attr-card__media svg {
   bottom: calc(12px + env(safe-area-inset-bottom));
   z-index: 35;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 8px;
   padding: 8px;
   border-radius: 999px;

@@ -4,10 +4,10 @@ import Link from 'next/link'
 import { Marquee } from '@/components/motion/Marquee'
 import { StrikeScene } from '@/components/motion/StrikeScene'
 import { Attractions } from '@/components/sections/Attractions'
-import { CtaBand, EventTypes, FaqSection, Gallery, WhatsAppSection, Proof, SectionHead, Visit } from '@/components/sections/Blocks'
+import { CtaBand, EventTypes, FaqSection, Gallery, Proof, SectionHead, Visit } from '@/components/sections/Blocks'
 import { HowToBook } from '@/components/sections/HowToBook'
 import { Packages } from '@/components/sections/Packages'
-import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
+import { ReserveButton } from '@/components/ui/Actions'
 import { UntilDate } from '@/components/ui/UntilDate'
 import { FAQ_GERAL } from '@/content/faq'
 import { SEASON } from '@/content/offers'
@@ -53,7 +53,9 @@ export default function Home() {
             <ReserveButton id="hero" size="lg">
               Reservar minha pista
             </ReserveButton>
-            <WhatsAppButton id="hero" size="lg" variant="ghost" />
+            <a href="#pacotes" className="btn btn--ghost btn--lg">
+              <span>Ver combos</span>
+            </a>
           </div>
           <ul className="hero__proof" data-hero>
             <li>
@@ -116,8 +118,6 @@ export default function Home() {
       <Proof />
 
       <Gallery />
-
-      <WhatsAppSection />
 
       <FaqSection items={FAQ_GERAL} />
 

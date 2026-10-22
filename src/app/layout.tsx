@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: '%s · Strike Berlin São Leopoldo',
   },
   description:
-    'Boliche com telão interativo, realidade virtual, fliperama, sinuca, karaokê e gastrobar no Centro de São Leopoldo. Reserve sua pista online ou pelo WhatsApp.',
+    'Boliche com telão interativo, realidade virtual, fliperama, sinuca, karaokê e gastrobar no Centro de São Leopoldo. Reserve sua pista online.',
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   alternates: { canonical: '/' },
   openGraph: {

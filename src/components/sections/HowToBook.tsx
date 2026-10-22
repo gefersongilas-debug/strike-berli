@@ -1,13 +1,13 @@
 'use client'
 /**
- * Quatro jeitos de vir. Uma "pista" vertical liga as opções e a bola desce
+ * Três jeitos de vir. Uma "pista" vertical liga as opções e a bola desce
  * por ela conforme o scroll, acendendo cada passo.
  */
-import { CalendarCheck, DoorOpen, MapPinned } from 'lucide-react'
+import { CalendarCheck, DoorOpen, UtensilsCrossed } from 'lucide-react'
 import { useRef } from 'react'
 import { MOTION_OK, gsap, useGSAP } from '@/components/motion/gsap'
-import { BallIcon, WhatsAppIcon } from '@/components/ui/BrandIcons'
-import { DirectionsButton, ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
+import { BallIcon } from '@/components/ui/BrandIcons'
+import { DirectionsButton, ReserveButton } from '@/components/ui/Actions'
 
 export function HowToBook() {
   const scope = useRef<HTMLElement>(null)
@@ -95,28 +95,15 @@ export function HowToBook() {
             </li>
             <li className="htb-step">
               <span className="htb-step__icon">
-                <WhatsAppIcon size={22} />
+                <UtensilsCrossed size={22} aria-hidden="true" />
               </span>
               <div>
-                <p className="htb-step__tag">Opção 02</p>
-                <h3>Pelo WhatsApp</h3>
-                <p>Prefere falar com gente? O atendimento monta a reserva com você, inclusive pacote de festa.</p>
-                <WhatsAppButton id="como-reservar-whatsapp" size="sm" variant="dark">
-                  Reservar pelo WhatsApp
-                </WhatsAppButton>
-              </div>
-            </li>
-            <li className="htb-step">
-              <span className="htb-step__icon">
-                <MapPinned size={22} aria-hidden="true" />
-              </span>
-              <div>
-                <p className="htb-step__tag">Opção 03 · para eventos</p>
-                <h3>Venha conhecer</h3>
-                <p>Vai fazer aniversário ou confraternização? Agende uma visita e veja o espaço antes de fechar.</p>
-                <WhatsAppButton id="como-reservar-visita" size="sm" variant="secondary" text="Oi! Vim pelo site e quero agendar uma visita para conhecer o espaço.">
-                  Agendar visita
-                </WhatsAppButton>
+                <p className="htb-step__tag">Opção 02 · com comida e chopp</p>
+                <h3>Combo pelo WhatsApp</h3>
+                <p>Quer pista com petisco, hambúrguer ou chopp já incluídos? Escolha o combo e feche com o atendimento.</p>
+                <a href="#pacotes" className="btn btn--dark btn--sm">
+                  <span>Ver combos</span>
+                </a>
               </div>
             </li>
             <li className="htb-step">
@@ -124,7 +111,7 @@ export function HowToBook() {
                 <DoorOpen size={22} aria-hidden="true" />
               </span>
               <div>
-                <p className="htb-step__tag">Opção 04</p>
+                <p className="htb-step__tag">Opção 03</p>
                 <h3>Chegar sem reserva</h3>
                 <p>Pode vir direto — só não dá pra garantir pista livre na hora, principalmente no fim de semana.</p>
                 <DirectionsButton id="como-reservar-chegar" size="sm" variant="ghost-dark" />

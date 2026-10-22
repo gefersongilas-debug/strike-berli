@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { NAV, SITE } from '@/content/site'
-import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
+import { ReserveButton } from '@/components/ui/Actions'
 
 /** Transparente sobre o topo; ganha fundo ao rolar, some descendo e volta subindo. */
 export function SiteHeader() {
@@ -84,7 +84,6 @@ export function SiteHeader() {
         </ul>
         <div className="menu-mobile__cta">
           <ReserveButton id="menu" size="lg" />
-          <WhatsAppButton id="menu" size="lg" />
         </div>
       </div>
     </header>

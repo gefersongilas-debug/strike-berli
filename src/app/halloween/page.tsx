@@ -4,7 +4,7 @@ import { Bats } from '@/components/motion/SeasonDecor'
 import { CtaBand, FaqSection, WhatsAppSection, SectionHead, Visit } from '@/components/sections/Blocks'
 import { Packages } from '@/components/sections/Packages'
 import { SeasonHero } from '@/components/sections/SeasonHero'
-import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
+import { ReserveButton } from '@/components/ui/Actions'
 import { FAQ_HALLOWEEN } from '@/content/faq'
 import { LANE_FEE_PCT, LANE_PRICES, brl } from '@/content/packages'
 import { RULES } from '@/content/site'
@@ -37,7 +37,9 @@ export default function Halloween() {
         <ReserveButton id="hw-hero" size="lg">
           Reservar pista
         </ReserveButton>
-        <WhatsAppButton id="hw-hero" size="lg" variant="ghost" context="halloween" />
+        <a href="#hw-pacotes" className="btn btn--ghost btn--lg">
+          <span>Ver combos</span>
+        </a>
       </SeasonHero>
 
       <section className="section section--night" aria-labelledby="hw-quando">
@@ -87,7 +89,7 @@ export default function Halloween() {
         </div>
       </section>
 
-      <section className="section section--night" aria-labelledby="hw-pacotes">
+      <section className="section section--night" id="hw-pacotes" aria-labelledby="hw-pacotes-title">
         <div className="container">
           <SectionHead eyebrow="Pacotes" title="Pista, petisco e chopp. Já resolvido." lead={RULES.combosWhatsapp} />
           <Packages />
@@ -104,7 +106,7 @@ export default function Halloween() {
 
       <FaqSection items={FAQ_HALLOWEEN} title="Antes do susto." id="faq-hw" />
       <Visit />
-      <CtaBand title="Corre que sábado lota. Até de assombração." context="halloween" />
+      <CtaBand title="Corre que sábado lota. Até de assombração." />
     </div>
   )
 }

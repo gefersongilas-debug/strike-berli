@@ -47,10 +47,7 @@ export default function DiaDasCriancas() {
           </UntilDate>
         }
       >
-        <WhatsAppButton id="dc-hero" size="lg" variant="primary" context="diaCriancas">
-          Quero o doce extra
-        </WhatsAppButton>
-        <ReserveButton id="dc-hero" size="lg" variant="ghost">
+        <ReserveButton id="dc-hero" size="lg">
           Reservar pista
         </ReserveButton>
       </SeasonHero>
@@ -160,7 +157,7 @@ export default function DiaDasCriancas() {
 
       <FaqSection items={FAQ_DIA_CRIANCAS} title="Antes de trazer a criançada." id="faq-dc" />
       <Visit />
-      <CtaBand title="Doce extra e strike garantido. Bora?" context="diaCriancas" />
+      <CtaBand title="Doce extra e strike garantido. Bora?" />
     </>
   )
 }

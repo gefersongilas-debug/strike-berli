@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { CtaBand, FaqSection, WhatsAppSection, PageHero, SectionHead, Visit } from '@/components/sections/Blocks'
 import { GroupPlanner } from '@/components/sections/GroupPlanner'
 import { Packages } from '@/components/sections/Packages'
-import { WhatsAppButton } from '@/components/ui/Actions'
+import { ReserveButton } from '@/components/ui/Actions'
 import { FAQ_GRUPOS } from '@/content/faq'
 
 export const metadata: Metadata = {
@@ -32,14 +32,13 @@ export default function Confraternizacao() {
         accent="A gente cuida do resto."
         lead="Turma da faculdade, família grande, time ou a firma inteira: 4 pistas, 5 mesas de sinuca, fliperama, karaokê e gastrobar no mesmo lugar, com proposta sob medida."
         photo={{ src: '/img/pistas-neon.jpg', alt: 'As 4 pistas de boliche em neon do Strike Berlin' }}
-        context="grupos"
       >
-        <a href="#calculadora" className="btn btn--primary btn--lg" data-magnetic>
+        <ReserveButton id="grupos-hero" size="lg">
+          Reservar pistas
+        </ReserveButton>
+        <a href="#calculadora" className="btn btn--ghost btn--lg">
           <span>Quantas pistas preciso?</span>
         </a>
-        <WhatsAppButton id="grupos-hero" size="lg" variant="ghost" context="grupos">
-          Pedir proposta
-        </WhatsAppButton>
       </PageHero>
 
       <section className="section section--night" id="calculadora" aria-labelledby="calc-title">
@@ -94,7 +93,7 @@ export default function Confraternizacao() {
 
       <FaqSection items={FAQ_GRUPOS} title="O que o organizador pergunta." id="faq-grupos" />
       <Visit />
-      <CtaBand title="Tira a turma do grupo do Whats e traz pra pista." context="grupos" />
+      <CtaBand title="Tira a turma do grupo do Whats e traz pra pista." />
     </>
   )
 }

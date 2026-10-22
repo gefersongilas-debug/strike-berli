@@ -6,7 +6,7 @@
  */
 import { useRef, useState } from 'react'
 import { DAYS, LANE_FEE_PCT, LANE_PRICES, LANES, PEOPLE_PER_LANE, brl, type DayKey } from '@/content/packages'
-import { WhatsAppButton } from '@/components/ui/Actions'
+import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
 import { trackEvent } from '@/components/tracking/track'
 
 const HOURS = [1, 2, 3] as const
@@ -124,13 +124,18 @@ export function GroupPlanner() {
           site). Menores de 9 anos não pagam entrada. Comida e bebida entram na proposta: os combos são fechados pelo
           WhatsApp.
         </p>
-        <WhatsAppButton
-          id="calculadora-grupo"
-          variant="primary"
-          text={`Oi! Vim pelo site e quero uma proposta de confraternização para ${people} pessoas (${dayLabel}, ${hours}h de boliche).`}
-        >
-          Pedir proposta para {people} pessoas
-        </WhatsAppButton>
+        <div className="btn-row">
+          <ReserveButton id="calculadora-grupo">
+            Reservar {lanes === 1 ? 'a pista' : `${lanes} pistas`}
+          </ReserveButton>
+          <WhatsAppButton
+            id="calculadora-grupo"
+            variant="secondary"
+            text={`Oi! Vim pelo site e quero combos de confraternização para ${people} pessoas (${dayLabel}, ${hours}h de boliche).`}
+          >
+            Combos para {people} pessoas
+          </WhatsAppButton>
+        </div>
       </div>
     </div>
   )

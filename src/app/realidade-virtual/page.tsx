@@ -1,7 +1,7 @@
 import { Glasses, Swords, Ticket } from 'lucide-react'
 import type { Metadata } from 'next'
 import { CtaBand, FaqSection, SectionHead, Visit } from '@/components/sections/Blocks'
-import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
+import { ReserveButton } from '@/components/ui/Actions'
 import { VrArt } from '@/components/ui/Illustrations'
 import { FAQ_VR } from '@/content/faq'
 
@@ -36,9 +36,9 @@ export default function RealidadeVirtual() {
             </p>
             <div className="btn-row" data-hero>
               <ReserveButton id="vr-hero" size="lg" />
-              <WhatsAppButton id="vr-hero" size="lg" variant="ghost" context="vr">
-                Tirar dúvida
-              </WhatsAppButton>
+              <a href="/pacotes" className="btn btn--ghost btn--lg">
+                <span>Pacotes com VR</span>
+              </a>
             </div>
           </div>
           <div className="vr-hero__art" data-hero>
@@ -69,7 +69,7 @@ export default function RealidadeVirtual() {
 
       <FaqSection items={FAQ_VR} title="Antes de colocar o óculos." id="faq-vr" />
       <Visit />
-      <CtaBand title="Pista, óculos e chopp. Bora?" context="vr" />
+      <CtaBand title="Pista, óculos e chopp. Bora?" />
     </>
   )
 }

@@ -19,7 +19,6 @@ export default function Pacotes() {
         accent="Já resolvido."
         lead="Quatro pacotes, do casal à festa inteira. Todos com uma partida de realidade virtual para dois — e de segunda a quinta sai mais em conta."
         photo={{ src: '/img/bolas-coloridas.jpg', alt: 'Bolas de boliche coloridas no retorno da pista' }}
-        context="pacotes"
       />
       <section className="section section--night" aria-labelledby="pk-title">
         <div className="container">
@@ -29,7 +28,7 @@ export default function Pacotes() {
       </section>
       <WhatsAppSection context="pacotes" title="Grupo grande? A gente ajusta o pacote." />
       <FaqSection items={FAQ_GERAL} id="faq-pacotes" />
-      <CtaBand context="pacotes" />
+      <CtaBand />
     </>
   )
 }

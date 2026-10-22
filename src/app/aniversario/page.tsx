@@ -33,7 +33,6 @@ export default function Aniversario() {
         accent="Strike."
         lead="Boliche, realidade virtual e fliperama no mesmo lugar, com Combo Festa pra criançada e gastrobar pros adultos. De segunda a quinta tem mais horário livre."
         photo={{ src: '/img/coracao-neon.jpg', alt: 'Painel de coração em neon Strike Berlin, cenário das fotos da festa' }}
-        context="aniversario"
         badge={
           <UntilDate end="2026-10-31">
             <span className="season-pill season-pill--static">
@@ -42,12 +41,12 @@ export default function Aniversario() {
           </UntilDate>
         }
       >
-        <a href="#proposta" className="btn btn--primary btn--lg" data-magnetic>
-          <span>Montar a festa</span>
+        <ReserveButton id="aniversario-hero" size="lg">
+          Reservar a pista
+        </ReserveButton>
+        <a href="#proposta" className="btn btn--ghost btn--lg">
+          <span>Ver o Combo Festa</span>
         </a>
-        <WhatsAppButton id="aniversario-hero" size="lg" variant="ghost" context="aniversario">
-          Falar no WhatsApp
-        </WhatsAppButton>
       </PageHero>
 
       <section className="section section--cream" aria-labelledby="why-title">
@@ -112,7 +111,7 @@ export default function Aniversario() {
 
       <FaqSection items={FAQ_ANIVERSARIO} title="Antes de fechar a festa." id="faq-aniversario" />
       <Visit />
-      <CtaBand title="A criançada já escolheu. Falta você marcar." context="aniversario" />
+      <CtaBand title="A criançada já escolheu. Falta você marcar." />
     </>
   )
 }

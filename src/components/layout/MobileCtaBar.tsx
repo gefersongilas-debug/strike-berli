@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
+import { ReserveButton } from '@/components/ui/Actions'
 
-/** Barra fixa no celular com as duas conversões. Aparece depois do topo da página. */
+/** Barra fixa no celular com o Reservar (a conversão principal). Aparece depois do topo da página. */
 export function MobileCtaBar() {
   const [show, setShow] = useState(false)
 
@@ -19,11 +19,8 @@ export function MobileCtaBar() {
   return (
     <div className={`mobile-cta${show ? ' is-on' : ''}`} aria-hidden={!show} inert={!show}>
       <ReserveButton id="barra-mobile" size="md">
-        Reservar
+        Reservar minha pista
       </ReserveButton>
-      <WhatsAppButton id="barra-mobile" size="md" variant="whatsapp">
-        WhatsApp
-      </WhatsAppButton>
     </div>
   )
 }
