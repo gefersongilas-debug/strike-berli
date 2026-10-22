@@ -21,7 +21,6 @@ export function PageHero({
   accent,
   lead,
   photo,
-  context = 'default',
   badge,
   children,
 }: {
@@ -31,7 +30,6 @@ export function PageHero({
   accent?: string
   lead: string
   photo: { src: string; alt: string }
-  context?: WhatsAppContext
   badge?: ReactNode
   children?: ReactNode
 }) {
@@ -60,12 +58,7 @@ export function PageHero({
             {lead}
           </p>
           <div className="btn-row" data-hero>
-            {children ?? (
-              <>
-                <ReserveButton id="page-hero" size="lg" />
-                <WhatsAppButton id="page-hero" size="lg" variant="ghost" context={context} />
-              </>
-            )}
+            {children ?? <ReserveButton id="page-hero" size="lg" />}
           </div>
         </div>
         <div className="page-hero__card" data-hero>
@@ -289,12 +282,12 @@ export function FaqSection({ items, title = 'O que todo mundo pergunta.', id = '
             {title}
           </h2>
           <p className="lead-dark" data-reveal>
-            Não achou sua resposta?
+            Tudo certo? Escolha o dia e garanta a pista.
           </p>
           <div data-reveal>
-            <WhatsAppButton id={`${id}-duvida`} context="duvida" variant="dark">
-              Perguntar no WhatsApp
-            </WhatsAppButton>
+            <ReserveButton id={`${id}-reservar`} variant="dark">
+              Reservar minha pista
+            </ReserveButton>
           </div>
         </div>
         <div className="faq__list" data-stagger>
@@ -357,7 +350,7 @@ export function Visit() {
                   ))}
                 </span>
               ) : (
-                <span>Horários e feriados: confirme no WhatsApp antes de vir.</span>
+                <span>Horários disponíveis e feriados: confira no site de reservas.</span>
               )}
             </li>
             <li>
@@ -370,8 +363,8 @@ export function Visit() {
             </li>
           </ul>
           <div className="btn-row" data-reveal>
-            <DirectionsButton id="visit" variant="primary" />
-            <WhatsAppButton id="visit" variant="ghost" />
+            <ReserveButton id="visit" />
+            <DirectionsButton id="visit" variant="ghost" />
           </div>
         </div>
         <div className="visit__map" data-reveal>
@@ -389,13 +382,7 @@ export function Visit() {
 
 // ---------------------------------------------------------------------------
 
-export function CtaBand({
-  title = 'Bora tirar do grupo do Whats e trazer pra pista?',
-  context = 'default',
-}: {
-  title?: string
-  context?: WhatsAppContext
-}) {
+export function CtaBand({ title = 'Bora tirar do grupo do Whats e trazer pra pista?' }: { title?: string }) {
   return (
     <section className="cta-band" aria-labelledby="cta-title">
       <div className="cta-band__pins" aria-hidden="true">
@@ -408,8 +395,9 @@ export function CtaBand({
           {title}
         </h2>
         <div className="btn-row btn-row--center" data-reveal>
-          <ReserveButton id="cta-final" size="lg" variant="dark" />
-          <WhatsAppButton id="cta-final" size="lg" variant="ghost-dark" context={context} />
+          <ReserveButton id="cta-final" size="lg" variant="dark">
+            Reservar minha pista
+          </ReserveButton>
         </div>
       </div>
     </section>
@@ -419,14 +407,14 @@ export function CtaBand({
 // ---------------------------------------------------------------------------
 
 /**
- * Onde antes ficava o formulário de proposta: o pedido vai direto pelo WhatsApp,
- * com a mensagem pronta da página ("Vim pelo site e quero reservar…"), ou a
- * pessoa reserva a pista online. Mantém o id "proposta" dos botões que apontam
- * para cá.
+ * Seção de combos e grupos: o único lugar (com os pacotes) em que o WhatsApp
+ * aparece, porque combo só se fecha por lá. Abre com a mensagem pronta da página
+ * ("Vim pelo site e quero reservar…"); ao lado, o Reservar online para quem só
+ * quer a pista. Mantém o id "proposta" dos botões que apontam para cá.
  */
 export function WhatsAppSection({
   id = 'proposta',
-  eyebrow = 'Evento em grupo',
+  eyebrow = 'Combos e grupos',
   title = 'Vai juntar a galera? A gente monta a proposta.',
   lead = 'Conta o que você está pensando e o atendimento responde pelo WhatsApp com pacote, horário e valor.',
   context = 'default',

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { CtaBand, FaqSection, WhatsAppSection, PageHero, SectionHead, Visit } from '@/components/sections/Blocks'
 import { Packages } from '@/components/sections/Packages'
-import { WhatsAppButton } from '@/components/ui/Actions'
+import { ReserveButton } from '@/components/ui/Actions'
 import { FAQ_EMPRESAS } from '@/content/faq'
 
 export const metadata: Metadata = {
@@ -31,14 +31,13 @@ export default function Empresas() {
         accent="vale a pena."
         lead="Boliche, sinuca, realidade virtual, karaokê, petiscos e aquele chopp bem gelado. Proposta sob medida para a sua equipe, com nota fiscal."
         photo={{ src: '/img/pistas-neon.jpg', alt: 'Pistas de boliche em neon do Strike Berlin' }}
-        context="empresas"
       >
-        <a href="#proposta" className="btn btn--primary btn--lg" data-magnetic>
-          <span>Pedir proposta</span>
+        <ReserveButton id="empresas-hero" size="lg">
+          Reservar pistas
+        </ReserveButton>
+        <a href="#proposta" className="btn btn--ghost btn--lg">
+          <span>Combos para a equipe</span>
         </a>
-        <WhatsAppButton id="empresas-hero" size="lg" variant="ghost" context="empresas">
-          Falar no WhatsApp
-        </WhatsAppButton>
       </PageHero>
 
       <section className="section section--cream" aria-labelledby="why-emp-title">
@@ -105,7 +104,7 @@ export default function Empresas() {
 
       <FaqSection items={FAQ_EMPRESAS} title="O que o RH pergunta." id="faq-empresas" />
       <Visit />
-      <CtaBand title="A melhor reunião do ano é na pista." context="empresas" />
+      <CtaBand title="A melhor reunião do ano é na pista." />
     </>
   )
 }

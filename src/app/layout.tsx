@@ -8,6 +8,7 @@ import { SiteHeader } from '@/components/layout/SiteHeader'
 import { PageViewTracker } from '@/components/tracking/PageViewTracker'
 import { GtmNoscript, TrackingHead } from '@/components/tracking/TrackingScripts'
 import { SITE } from '@/content/site'
+import { seasonThemeScript } from '@/lib/season-theme'
 import './globals.css'
 
 const montserrat = Montserrat({
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     template: '%s · Strike Berlin São Leopoldo',
   },
   description:
-    'Boliche com telão interativo, realidade virtual, fliperama, sinuca, karaokê e gastrobar no Centro de São Leopoldo. Reserve sua pista online ou pelo WhatsApp.',
+    'Boliche com telão interativo, realidade virtual, fliperama, sinuca, karaokê e gastrobar no Centro de São Leopoldo. Reserve sua pista online.',
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   alternates: { canonical: '/' },
   openGraph: {
@@ -72,8 +73,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR" className={montserrat.variable} suppressHydrationWarning>
       <head>
-        {/* Antes da primeira pintura: esconde o que o GSAP vai animar na entrada (ver globals.css). */}
-        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add('js')` }} />
+        {/* Antes da primeira pintura: esconde o que o GSAP vai animar na entrada (ver globals.css)
+            e liga o tema sazonal dentro da janela de datas (ver src/lib/season-theme.ts). */}
+        <script dangerouslySetInnerHTML={{ __html: seasonThemeScript() }} />
         <TrackingHead />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
       </head>

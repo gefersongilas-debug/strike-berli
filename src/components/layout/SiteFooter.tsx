@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FOOTER_EXTRA, NAV, SITE, fullAddress } from '@/content/site'
 import { InstagramIcon } from '@/components/ui/BrandIcons'
-import { PhoneLink, ReserveButton, WhatsAppButton } from '@/components/ui/Actions'
+import { PhoneLink, ReserveButton } from '@/components/ui/Actions'
 
 export function SiteFooter() {
   return (
@@ -46,7 +46,6 @@ export function SiteFooter() {
         <div className="site-footer__cta">
           <h2>Bora marcar?</h2>
           <ReserveButton id="footer" />
-          <WhatsAppButton id="footer" variant="ghost" />
         </div>
       </div>
       <div className="container site-footer__legal">
