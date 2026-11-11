@@ -270,8 +270,18 @@ export function parseServerConfig(env: Env): ServerConfig {
   }
 }
 
+/**
+ * CRM em uso. Com KOMMO_SUBDOMAIN + KOMMO_ACCESS_TOKEN preenchidos o Kommo vale
+ * sempre, mesmo que CRM_PROVIDER diga outra coisa (na Vercel da Strike o
+ * CRM_PROVIDER antigo não pode ser editado). Sem eles, vale CRM_PROVIDER.
+ */
+export function crmProvider(env: Env): string {
+  if (clean(env.KOMMO_SUBDOMAIN) && clean(env.KOMMO_ACCESS_TOKEN)) return 'kommo'
+  return clean(env.CRM_PROVIDER) ?? 'none'
+}
+
 function parseCrm(env: Env): CrmConfig {
-  const provider = clean(env.CRM_PROVIDER) ?? 'none'
+  const provider = crmProvider(env)
   if (provider === 'webhook' && clean(env.CRM_WEBHOOK_URL)) {
     return { provider, url: clean(env.CRM_WEBHOOK_URL)!, secret: clean(env.CRM_WEBHOOK_SECRET) }
   }
@@ -475,7 +485,7 @@ export function validateTrackingConfig(env: Env): ValidationResult {
     warnings.push('Lead indo ao Google Ads pela tag (label) E pela API. Use ações de conversão diferentes e só uma como "primária", senão o lance otimiza em dobro.')
 
   // --- CRM ---
-  const rawCrm = clean(env.CRM_PROVIDER) ?? 'none'
+  const rawCrm = crmProvider(env)
   if (!(CRM_PROVIDERS as readonly string[]).includes(rawCrm)) {
     errors.push(`CRM_PROVIDER="${rawCrm}" inválido. Use ${CRM_PROVIDERS.join(', ')}.`)
   } else if (rawCrm === 'webhook') {

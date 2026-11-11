@@ -198,3 +198,13 @@ describe('checkKommoAccess', () => {
     expect(r.detail).toMatch(/entrada=501/)
   })
 })
+
+describe('Kommo sem depender de CRM_PROVIDER', () => {
+  it('com subdomínio + token, usa o Kommo mesmo com CRM_PROVIDER=none', () => {
+    const cfg = serverCfg({ CRM_PROVIDER: 'none', KOMMO_SUBDOMAIN: 'roseligc25', KOMMO_ACCESS_TOKEN: 't' })
+    expect(cfg.crm.provider).toBe('kommo')
+  })
+  it('sem token do Kommo, segue o CRM_PROVIDER', () => {
+    expect(serverCfg({ CRM_PROVIDER: 'none' }).crm.provider).toBe('none')
+  })
+})
