@@ -5,6 +5,7 @@ import { ConsentBanner } from '@/components/ConsentBanner'
 import { MobileCtaBar } from '@/components/layout/MobileCtaBar'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteHeader } from '@/components/layout/SiteHeader'
+import { WhatsAppLeadProvider } from '@/components/ui/WhatsAppLead'
 import { PageViewTracker } from '@/components/tracking/PageViewTracker'
 import { GtmNoscript, TrackingHead } from '@/components/tracking/TrackingScripts'
 import { SITE } from '@/content/site'
@@ -88,9 +89,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Pular para o conteúdo
         </a>
         <SiteHeader />
-        <main id="conteudo">{children}</main>
-        <SiteFooter />
-        <MobileCtaBar />
+        <WhatsAppLeadProvider>
+          <main id="conteudo">{children}</main>
+          <SiteFooter />
+          <MobileCtaBar />
+        </WhatsAppLeadProvider>
         <ConsentBanner />
       </body>
     </html>

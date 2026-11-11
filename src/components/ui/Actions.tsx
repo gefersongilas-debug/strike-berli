@@ -11,6 +11,7 @@ import { decorateOutboundUrl } from '@/lib/tracking/outbound'
 import { publicConfig } from '@/lib/tracking/public-config'
 import { WhatsAppIcon } from './BrandIcons'
 import { getConsent, trackEvent } from '../tracking/track'
+import { useWhatsAppLead } from './WhatsAppLead'
 
 type Variant = 'primary' | 'secondary' | 'ghost' | 'ghost-dark' | 'dark' | 'whatsapp'
 
@@ -70,14 +71,24 @@ export function WhatsAppButton({
   className,
   children,
 }: Common & { context?: WhatsAppContext; text?: string }) {
-  const href = whatsappHref(text ?? WHATSAPP_TEXT[context])
+  const message = text ?? WHATSAPP_TEXT[context]
+  const href = whatsappHref(message)
+  const openLead = useWhatsAppLead()
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       className={cls(variant, size, className)}
-      onClick={() => trackEvent('contact', { method: 'whatsapp', button: id, page: window.location.pathname })}
+      onClick={(e) => {
+        if (openLead) {
+          // Formulário antes do WhatsApp; o evento `contact` sai dentro do open().
+          e.preventDefault()
+          openLead({ button: id, text: message })
+        } else {
+          trackEvent('contact', { method: 'whatsapp', button: id, page: window.location.pathname })
+        }
+      }}
       data-track="whatsapp"
       data-magnetic
     >

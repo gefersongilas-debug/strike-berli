@@ -47,6 +47,8 @@ export const ENV_KEYS = {
     'CRM_PROVIDER',
     'CRM_WEBHOOK_URL',
     'CRM_WEBHOOK_SECRET',
+    'CRM_BACKUP_WEBHOOK_URL',
+    'CRM_BACKUP_WEBHOOK_SECRET',
     'RDSTATION_API_KEY',
     'RDSTATION_CONVERSION_IDENTIFIER',
     'KOMMO_SUBDOMAIN',
@@ -210,6 +212,8 @@ export interface ServerConfig {
   ga4?: Ga4ServerConfig
   googleAds?: GoogleAdsServerConfig
   crm: CrmConfig
+  /** Cópia de segurança de todo lead (ex.: Make → planilha). Opcional. */
+  crmBackup?: { url: string; secret?: string }
   healthToken?: string
   isProduction: boolean
 }
@@ -258,6 +262,9 @@ export function parseServerConfig(env: Env): ServerConfig {
     ga4,
     googleAds,
     crm: parseCrm(env),
+    crmBackup: clean(env.CRM_BACKUP_WEBHOOK_URL)
+      ? { url: clean(env.CRM_BACKUP_WEBHOOK_URL)!, secret: clean(env.CRM_BACKUP_WEBHOOK_SECRET) }
+      : undefined,
     healthToken: clean(env.TRACKING_HEALTH_TOKEN),
     isProduction: isProductionEnv(env),
   }

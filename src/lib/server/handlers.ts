@@ -4,7 +4,7 @@
  */
 import { z } from 'zod'
 import type { ServerConfig } from '@/lib/config'
-import { buildCrmAttribution, sendLeadToCrm, type CrmLead } from '@/lib/crm'
+import { buildCrmAttribution, sendLeadToCrm, sendWebhook, type CrmLead } from '@/lib/crm'
 import { EVENTS, isEventKey } from '@/lib/tracking/events'
 import { dispatchServerEvent } from './dispatch'
 import { normalizePhoneBR } from '@/lib/tracking/normalize'
@@ -109,14 +109,25 @@ export async function handleLead(req: Request, deps: HandlerDeps): Promise<Respo
     attribution: buildCrmAttribution(attribution),
   }
 
-  const crm = await withTimeout(sendLeadToCrm(lead, cfg.crm, fetchImpl), 8000, 'crm').catch((e) =>
-    failed(e instanceof Error ? e.message : String(e)),
-  )
-  if (crm.status === 'failed') {
+  const backupCfg = deps.cfg.crmBackup
+  const [crm, backup] = await Promise.all([
+    withTimeout(sendLeadToCrm(lead, cfg.crm, fetchImpl), 8000, 'crm').catch((e) =>
+      failed(e instanceof Error ? e.message : String(e)),
+    ),
+    backupCfg
+      ? withTimeout(sendWebhook(lead, { provider: 'webhook', ...backupCfg }, fetchImpl), 8000, 'backup').catch((e) =>
+          failed(e instanceof Error ? e.message : String(e)),
+        )
+      : Promise.resolve(undefined),
+  ])
+  if (backup?.status === 'failed') console.error(`[lead] backup falhou (${backup.detail}). Lead: ${JSON.stringify(lead)}`)
+  // O lead só se perde se o CRM E a cópia de segurança falharem.
+  if (crm.status === 'failed' && backup?.status !== 'sent') {
     // O lead não pode sumir: fica no log da Vercel para recuperação manual.
     console.error(`[lead] CRM falhou (${crm.detail}). Lead para recuperação: ${JSON.stringify(lead)}`)
     return json({ ok: false, error: 'Não foi possível enviar agora. Tente novamente em instantes.' }, 502)
   }
+  if (crm.status === 'failed') console.error(`[lead] CRM falhou (${crm.detail}); lead salvo só na cópia: ${JSON.stringify(lead)}`)
   console.info(`[lead] evt=${lead.eventId} crm=${crm.status}${crm.detail ? `(${crm.detail})` : ''}`)
 
   const ev: ServerEvent = {
