@@ -6,6 +6,10 @@
  *   combo ("Consulta de combos somente pelo WhatsApp").
  * - Pista avulsa: Eleven Tickets, 1 hora de boliche por pista, sem a taxa do site.
  * Mudou preço? Atualize aqui E no teste, citando a fonte e a data.
+ *
+ * Nomes dos combos: os da Strike (Kétlen, grupo de WhatsApp, 16/11/2026). O de salgados
+ * e doces é o "Combo Aniversário"; o de hambúrguer é o "Combo Festa". Não existe
+ * "Combo Burger": o nome antigo do site gerava pedido de combo que a casa não tem.
  */
 
 export type DayKey = 'semana' | 'sexta' | 'sabado'
@@ -61,8 +65,8 @@ export const PACKAGES: Package[] = [
     extrasLabel: 'Fritas, bebida e realidade virtual',
   },
   {
-    id: 'festa',
-    name: 'Combo Festa',
+    id: 'aniversario',
+    name: 'Combo Aniversário',
     idealFor: 'Aniversário e confraternização',
     items: [
       '2 horas de boliche',
@@ -80,11 +84,11 @@ export const PACKAGES: Package[] = [
     hours: 2,
     extrasLabel: 'Salgados, doces, bebida, fichas, VR e 2 entradas',
     highlight: true,
-    badge: 'Ideal para festa',
+    badge: 'Ideal para aniversário',
   },
   {
-    id: 'burger',
-    name: 'Combo Burger',
+    id: 'festa',
+    name: 'Combo Festa',
     idealFor: 'Happy hour e turma de amigos',
     items: [
       '2 horas de boliche',

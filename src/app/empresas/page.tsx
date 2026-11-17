@@ -90,7 +90,7 @@ export default function Empresas() {
       <section className="section section--night" aria-labelledby="pk-emp-title">
         <div className="container">
           <SectionHead eyebrow="Pacotes" title="Pra começar a conversa." lead="Para grupos maiores a gente monta a proposta: mais pistas, mais comida e o horário da sua equipe." />
-          <Packages only={['festa', 'burger', 'pista-2h']} />
+          <Packages only={['aniversario', 'festa', 'pista-2h']} />
         </div>
       </section>
 
