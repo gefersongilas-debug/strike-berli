@@ -79,7 +79,7 @@ export default function Confraternizacao() {
             title="Pra começar a conta."
             lead="Para grupo grande, o atendimento combina os combos com mais pistas e mais comida. Combos são fechados só pelo WhatsApp."
           />
-          <Packages only={['festa', 'burger', 'pista-2h']} />
+          <Packages only={['aniversario', 'festa', 'pista-2h']} />
         </div>
       </section>
 

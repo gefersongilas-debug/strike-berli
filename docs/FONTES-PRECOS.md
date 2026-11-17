@@ -15,8 +15,8 @@ pra cada grupo"**.
 |---|---|---|---|---|---|
 | Pista 1 hora | Turmas de amigos ("1 HORA") | 1 h de boliche, 1 fritas 500 g, 1,5 L de chopp ou 4 refri lata, 1 partida de VR p/ 2 | de R$ 198 por **R$ 169** | de R$ 218 por **R$ 189** | de R$ 248 por **R$ 209** |
 | Pista 2 horas | Turmas de amigos ("2 HORAS") | 2 h de boliche, 1 fritas 500 g, 2,5 L de chopp ou 6 refri lata, 1 partida de VR p/ 2 | de R$ 307 por **R$ 239** | de R$ 347 por **R$ 279** | de R$ 407 por **R$ 339** |
-| Combo Festa | Empresas e Happy Hour | 2 h de boliche, 1 partida de VR p/ 2, 10 fichas de game, 100 salgados, 50 doces, 10 refris ou torre 2,5 L de chopp Imigração, 2 entradas cortesia | de R$ 553 por **R$ 459** | de R$ 593 por **R$ 499** | de R$ 653 por **R$ 549** |
-| Combo Burger | Famílias e grupos mistos | 2 h de boliche, 1 partida de VR p/ 2, 10 fichas de game, 10 hambúrgueres (carne ou frango), 2 fritas 500 g, 10 refris ou torre 2,5 L de chopp Imigração, 2 entradas cortesia | de R$ 716 por **R$ 599** | de R$ 756 por **R$ 649** | de R$ 816 por **R$ 699** |
+| Combo Aniversário | Empresas e Happy Hour | 2 h de boliche, 1 partida de VR p/ 2, 10 fichas de game, 100 salgados, 50 doces, 10 refris ou torre 2,5 L de chopp Imigração, 2 entradas cortesia | de R$ 553 por **R$ 459** | de R$ 593 por **R$ 499** | de R$ 653 por **R$ 549** |
+| Combo Festa | Famílias e grupos mistos | 2 h de boliche, 1 partida de VR p/ 2, 10 fichas de game, 10 hambúrgueres (carne ou frango), 2 fritas 500 g, 10 refris ou torre 2,5 L de chopp Imigração, 2 entradas cortesia | de R$ 716 por **R$ 599** | de R$ 756 por **R$ 649** | de R$ 816 por **R$ 699** |
 
 O Eleven Tickets **não vende combo**: lá está escrito "Consulta de combos somente pelo
 Whatsapp (51) 99787-5096" (captura 2). Por isso o botão de cada pacote abre o WhatsApp.
@@ -64,8 +64,8 @@ fixo dos itens.** A conta fecha nos três dias, o que mostra que cada pacote é 
 |---|---|---|---|
 | Pista 1 hora | 198 / 218 / 248 | 1 h: 79 / 99 / 129 | **R$ 119** (fritas, bebida e VR) |
 | Pista 2 horas | 307 / 347 / 407 | 2 h: 158 / 198 / 258 | **R$ 149** (fritas, bebida e VR) |
-| Combo Festa | 553 / 593 / 653 | 2 h: 158 / 198 / 258 | **R$ 395** (salgados, doces, bebida, fichas, VR, 2 entradas) |
-| Combo Burger | 716 / 756 / 816 | 2 h: 158 / 198 / 258 | **R$ 558** (hambúrgueres, fritas, bebida, fichas, VR, 2 entradas) |
+| Combo Aniversário | 553 / 593 / 653 | 2 h: 158 / 198 / 258 | **R$ 395** (salgados, doces, bebida, fichas, VR, 2 entradas) |
+| Combo Festa | 716 / 756 / 816 | 2 h: 158 / 198 / 258 | **R$ 558** (hambúrgueres, fritas, bebida, fichas, VR, 2 entradas) |
 
 Por isso cada card mostra a conta: **pista + itens = "separado sairia"**, e quanto o pacote
 economiza. Ex.: Pista 1 hora de segunda a quinta = R$ 79 + R$ 119 = R$ 198 separado, ou
@@ -83,8 +83,12 @@ economiza. Ex.: Pista 1 hora de segunda a quinta = R$ 79 + R$ 119 = R$ 198 separ
 
 ## 4. O que é texto nosso (não está nas fontes)
 
-- Os **nomes** "Pista 1 hora", "Pista 2 horas", "Combo Festa" e "Combo Burger". O site
-  atual não dá nome aos pacotes; só os separa em cards de grupo.
+- Os **nomes** "Pista 1 hora" e "Pista 2 horas". O site atual não dá nome aos pacotes;
+  só os separa em cards de grupo.
+- Os nomes dos combos vêm da Strike (Kétlen, 16/11/2026): o de salgados e doces é o
+  **Combo Aniversário** e o de hambúrguer é o **Combo Festa**. Até 16/11 o site chamava
+  esses dois de "Combo Festa" e "Combo Burger", e chegavam pedidos de combo que a casa
+  não tem. Não existe "Combo Burger".
 - A linha de **"para quem"** de cada card e o selo "Ideal para festa".
 - A **oferta de doce extra** do Dia das Crianças: veio do pedido do cliente, sem
   quantidade nem validade definidas ainda.

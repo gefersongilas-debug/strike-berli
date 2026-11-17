@@ -10,8 +10,8 @@ import { LANE_FEE_PCT, LANE_PRICES, PACKAGES, PEOPLE_PER_LANE, priceBreakdown } 
 const CONFERIDO = {
   'pista-1h': { semana: [198, 169], sexta: [218, 189], sabado: [248, 209] },
   'pista-2h': { semana: [307, 239], sexta: [347, 279], sabado: [407, 339] },
-  festa: { semana: [553, 459], sexta: [593, 499], sabado: [653, 549] },
-  burger: { semana: [716, 599], sexta: [756, 649], sabado: [816, 699] },
+  aniversario: { semana: [553, 459], sexta: [593, 499], sabado: [653, 549] },
+  festa: { semana: [716, 599], sexta: [756, 649], sabado: [816, 699] },
 } as const
 
 describe('preços conferidos (05/10/2026)', () => {
@@ -25,10 +25,18 @@ describe('preços conferidos (05/10/2026)', () => {
     }
   })
 
-  it('itens do Combo Festa batem com o site atual', () => {
+  it('itens do Combo Aniversário batem com o site atual', () => {
+    const aniv = PACKAGES.find((p) => p.id === 'aniversario')!
+    expect(aniv.name).toBe('Combo Aniversário')
+    expect(aniv.items.join(' | ')).toMatch(/100 salgados e 50 doces/)
+    expect(aniv.items.join(' | ')).toMatch(/2 entradas cortesia/)
+  })
+
+  it('nomes dos combos são os da Strike (16/11/2026): não existe Combo Burger', () => {
     const festa = PACKAGES.find((p) => p.id === 'festa')!
-    expect(festa.items.join(' | ')).toMatch(/100 salgados e 50 doces/)
-    expect(festa.items.join(' | ')).toMatch(/2 entradas cortesia/)
+    expect(festa.name).toBe('Combo Festa')
+    expect(festa.items.join(' | ')).toMatch(/hambúrgueres/)
+    expect(PACKAGES.map((p) => p.name)).not.toContain('Combo Burger')
   })
 
   it('nenhum pacote promete "para N pessoas" na comida (as fontes não dizem)', () => {
@@ -40,7 +48,7 @@ describe('preços conferidos (05/10/2026)', () => {
 
   it('o "de" do site atual = 1 pista no preço do Eleven Tickets + itens de valor fixo', () => {
     // Se isto quebrar, o site atual ou o Eleven Tickets mudou preço: confira as duas fontes.
-    const extras = { 'pista-1h': 119, 'pista-2h': 149, festa: 395, burger: 558 } as const
+    const extras = { 'pista-1h': 119, 'pista-2h': 149, aniversario: 395, festa: 558 } as const
     for (const p of PACKAGES) {
       for (const day of ['semana', 'sexta', 'sabado'] as const) {
         const b = priceBreakdown(p, day)

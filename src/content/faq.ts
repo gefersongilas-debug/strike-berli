@@ -32,7 +32,7 @@ export const FAQ_GERAL: Faq[] = [
 
 export const FAQ_ANIVERSARIO: Faq[] = [
   {
-    q: 'O que vem no Combo Festa?',
+    q: 'O que vem no Combo Aniversário?',
     a: '2 horas de boliche, 100 salgados e 50 doces, 10 refris ou uma torre de 2,5 L de chopp, 10 fichas de game, 1 partida de realidade virtual para 2 e 2 entradas cortesia.',
   },
   { q: 'Aniversariante ganha alguma coisa?', a: RULES.birthday },

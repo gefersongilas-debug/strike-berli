@@ -25,7 +25,7 @@ const WHY = [
   { icon: Ticket, title: 'Menor de 9 não paga entrada', text: RULES.kidsFree },
   { icon: Gamepad2, title: 'Fliperama e pelúcia', text: 'Air hockey, jogos eletrônicos e máquina de pelúcia pra levar lembrança.' },
   { icon: Glasses, title: 'Realidade virtual', text: 'Todo pacote já traz uma partida de realidade virtual para dois.' },
-  { icon: Utensils, title: 'Doce e salgado resolvidos', text: 'O Combo Festa vem com 100 salgados e 50 doces. Pros adultos, gastrobar com chopp.' },
+  { icon: Utensils, title: 'Doce e salgado resolvidos', text: 'O Combo Aniversário vem com 100 salgados e 50 doces. Pros adultos, gastrobar com chopp.' },
   { icon: Sparkles, title: 'Climatizado e acessível', text: 'Ambiente climatizado, elevador e mesas e camarotes pra família inteira.' },
 ]
 
@@ -131,7 +131,7 @@ export default function DiaDasCriancas() {
               <CalendarDays size={22} aria-hidden="true" />
               <h3>Segunda a quinta</h3>
               <p className="when__price">{brl(LANE_PRICES.semana)} a hora</p>
-              <p>Depois do feriado a pista é mais tranquila e o Combo Festa sai pelo melhor preço da semana.</p>
+              <p>Depois do feriado a pista é mais tranquila e o Combo Aniversário sai pelo melhor preço da semana.</p>
               <ReserveButton id="dc-semana" size="sm">
                 Ver horários
               </ReserveButton>
@@ -143,7 +143,7 @@ export default function DiaDasCriancas() {
       <section className="section section--night" aria-labelledby="dc-pacotes">
         <div className="container">
           <SectionHead eyebrow="Pacotes" title="Combos pra festa da criançada." lead={RULES.combosWhatsapp} />
-          <Packages only={['festa', 'pista-1h', 'pista-2h']} />
+          <Packages only={['aniversario', 'pista-1h', 'pista-2h']} />
         </div>
       </section>
 
@@ -152,7 +152,7 @@ export default function DiaDasCriancas() {
         eyebrow="Monte a festa"
         title="Conta quantas crianças vêm. A gente cuida do resto."
         lead="O atendimento responde pelo WhatsApp com pacote, horário, valor e o doce extra."
-        bullets={['Resposta pelo WhatsApp', 'Doce extra na festa fechada pelo WhatsApp', 'Menores de 9 anos não pagam entrada', 'Combo Festa com 100 salgados e 50 doces']}
+        bullets={['Resposta pelo WhatsApp', 'Doce extra na festa fechada pelo WhatsApp', 'Menores de 9 anos não pagam entrada', 'Combo Aniversário com 100 salgados e 50 doces']}
       />
 
       <FaqSection items={FAQ_DIA_CRIANCAS} title="Antes de trazer a criançada." id="faq-dc" />
