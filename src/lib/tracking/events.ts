@@ -53,6 +53,15 @@ export const EVENTS = {
     publicServer: true,
     googleAdsConversion: false,
   },
+  /** Clique em um link da página /bio (link da bio do Instagram). */
+  link_bio_click: {
+    meta: 'LinkBioClick',
+    metaCustom: true,
+    ga4: 'clique_link_bio',
+    dataLayer: 'trk_link_bio_click',
+    publicServer: true,
+    googleAdsConversion: false,
+  },
   /** Clique em "Como chegar" (Google Maps). */
   directions_click: {
     meta: 'FindLocation',
