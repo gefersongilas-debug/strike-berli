@@ -6,7 +6,8 @@
  * e click ids lidos dos cookies pelo servidor) e a pessoa é levada ao WhatsApp
  * com a mensagem pronta já marcada pela origem (Google/Instagram). Se ela não
  * chamar, o lead já existe no CRM para o time abordar.
- * Quem já preencheu nos últimos 30 dias vai direto ao WhatsApp.
+ * Quem já preencheu nos últimos 30 dias, pela mesma origem, vai direto ao
+ * WhatsApp; com origem nova o formulário volta já preenchido.
  */
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { whatsappHref } from '@/content/site'
@@ -14,6 +15,7 @@ import { cookieReaderFromHeader, readAttribution } from '@/lib/tracking/attribut
 import { normalizePhoneBR } from '@/lib/tracking/normalize'
 import { textForOrigin, visitOrigin } from '@/lib/tracking/origin'
 import { newEventId } from '@/lib/tracking/client'
+import { parseSaved, skipsForm, type Saved } from '@/lib/tracking/wa-saved'
 import { trackEvent, trackLeadInBrowser } from '../tracking/track'
 
 export interface WhatsAppRequest {
@@ -24,18 +26,10 @@ export interface WhatsAppRequest {
 }
 
 const STORE = 'strike_wa_lead'
-const TTL_MS = 30 * 24 * 60 * 60 * 1000
-
-interface Saved {
-  name: string
-  phone: string
-  ts: number
-}
 
 function readSaved(): Saved | undefined {
   try {
-    const v = JSON.parse(localStorage.getItem(STORE) ?? 'null') as Saved | null
-    return v && typeof v.ts === 'number' ? v : undefined
+    return parseSaved(localStorage.getItem(STORE))
   } catch {
     return undefined
   }
@@ -53,8 +47,10 @@ const Ctx = createContext<((req: WhatsAppRequest) => void) | null>(null)
 /** null fora do Provider: o botão cai no link direto (comportamento antigo). */
 export const useWhatsAppLead = () => useContext(Ctx)
 
+const currentOrigin = () => visitOrigin(readAttribution(cookieReaderFromHeader(document.cookie)))
+
 function goToWhatsApp(text: string) {
-  const origin = visitOrigin(readAttribution(cookieReaderFromHeader(document.cookie)))
+  const origin = currentOrigin()
   const href = whatsappHref(textForOrigin(text, origin))
   const w = window.open(href, '_blank', 'noopener,noreferrer')
   if (!w) window.location.assign(href)
@@ -71,9 +67,13 @@ export function WhatsAppLeadProvider({ children }: { children: ReactNode }) {
   const open = useCallback((r: WhatsAppRequest) => {
     trackEvent('contact', { method: 'whatsapp', button: r.button, page: window.location.pathname })
     const saved = readSaved()
-    if (saved && Date.now() - saved.ts < TTL_MS) {
+    if (skipsForm(saved, currentOrigin(), Date.now())) {
       goToWhatsApp(r.text)
       return
+    }
+    if (saved) {
+      setName(saved.name)
+      setPhone(saved.phone)
     }
     setErrors({})
     setReq(r)
@@ -96,7 +96,7 @@ export function WhatsAppLeadProvider({ children }: { children: ReactNode }) {
     setErrors(next)
     if (next.name || next.phone) return
 
-    const origin = visitOrigin(readAttribution(cookieReaderFromHeader(document.cookie)))
+    const origin = currentOrigin()
     const text = textForOrigin(req.text, origin)
     const eventId = newEventId()
     // keepalive: a requisição termina mesmo com a navegação para o WhatsApp.
@@ -117,7 +117,7 @@ export function WhatsAppLeadProvider({ children }: { children: ReactNode }) {
       }),
     }).catch(() => undefined)
     trackLeadInBrowser(eventId, { phone })
-    writeSaved({ name: name.trim(), phone, ts: Date.now() })
+    writeSaved({ name: name.trim(), phone, ts: Date.now(), origin })
     setReq(null)
     // Aberto dentro do clique: o navegador não bloqueia como pop-up.
     const href = whatsappHref(text)
