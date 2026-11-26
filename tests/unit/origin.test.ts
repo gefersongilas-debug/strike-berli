@@ -13,6 +13,10 @@ describe('origem da visita', () => {
     expect(visitOrigin(base({ fbc: 'fb.1.1700000000000.x' }))).toBe('meta')
     expect(visitOrigin(base({ lastTouch: { utm_source: 'ig', ts: 1 } as never }))).toBe('meta')
   })
+  it('utm_medium=bio = link da bio', () => {
+    expect(visitOrigin(base({ lastTouch: { utm_source: 'instagram', utm_medium: 'bio', ts: 1 } as never }))).toBe('bio')
+    expect(textForOrigin('Oi! Vim pelo site e quero reservar.', 'bio')).toBe('Oi! Vim pelo link do Instagram e quero reservar.')
+  })
   it('sem sinal = site', () => {
     expect(visitOrigin(base({}))).toBe('site')
   })

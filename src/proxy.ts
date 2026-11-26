@@ -5,6 +5,15 @@ import { captureTrackingCookies } from '@/lib/tracking/capture'
 const publicConfig = parsePublicConfig(process.env)
 
 export function proxy(request: NextRequest) {
+  // Link da bio sem UTM (ex.: /bio puro): marca a origem antes de gravar os cookies.
+  if (request.nextUrl.pathname === '/bio' && !request.nextUrl.searchParams.has('utm_source') && request.method === 'GET') {
+    const url = request.nextUrl.clone()
+    url.searchParams.set('utm_source', 'instagram')
+    url.searchParams.set('utm_medium', 'bio')
+    url.searchParams.set('utm_campaign', 'link-bio')
+    return NextResponse.redirect(url, 307)
+  }
+
   const response = NextResponse.next()
 
   // Só navegação de página (não prefetch, não fetch de dados).

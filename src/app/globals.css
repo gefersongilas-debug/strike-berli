@@ -2825,3 +2825,67 @@ html.is-halloween [data-season='default'] {
   opacity: 0.7;
   cursor: pointer;
 }
+
+/* ---- Página /bio (link da bio do Instagram): sem menu, rodapé nem barra fixa ---- */
+body:has(.bio) .site-header,
+body:has(.bio) .site-footer,
+body:has(.bio) .mobile-cta {
+  display: none;
+}
+.bio {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 32px 16px 48px;
+  background: radial-gradient(120% 80% at 50% 0%, var(--night-3), var(--night) 60%);
+}
+.bio__card {
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+  display: grid;
+  gap: 14px;
+}
+.bio__logo {
+  margin: 0 auto;
+  height: auto;
+  width: 120px;
+}
+.bio__title {
+  font-size: 1.6rem;
+  margin: 0;
+}
+.bio__lead {
+  margin: 0 0 6px;
+  opacity: 0.85;
+}
+.bio__actions,
+.bio__links {
+  display: grid;
+  gap: 12px;
+}
+.bio__btn {
+  width: 100%;
+  justify-content: center;
+}
+.bio__link {
+  display: grid;
+  gap: 2px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  color: inherit;
+  text-decoration: none;
+}
+.bio__link:hover {
+  border-color: var(--yellow);
+}
+.bio__link span {
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+.bio__fine {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  opacity: 0.65;
+}

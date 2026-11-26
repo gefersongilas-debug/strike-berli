@@ -5,13 +5,15 @@
  */
 import type { Attribution } from './attribution'
 
-export type VisitOrigin = 'google' | 'meta' | 'site'
+export type VisitOrigin = 'google' | 'meta' | 'bio' | 'site'
 
 const META_SOURCES = /^(facebook|fb|instagram|ig|meta)/i
 const GOOGLE_SOURCES = /^google/i
 
 export function visitOrigin(a: Attribution): VisitOrigin {
   const src = a.lastTouch?.utm_source ?? a.firstTouch?.utm_source ?? ''
+  // Link da bio do Instagram (utm_medium=bio): origem própria, para medir as vendas dele.
+  if ((a.lastTouch?.utm_medium ?? a.firstTouch?.utm_medium ?? '').toLowerCase() === 'bio') return 'bio'
   if (a.gclid || a.gbraid || a.wbraid || GOOGLE_SOURCES.test(src)) return 'google'
   if (a.fbc || META_SOURCES.test(src)) return 'meta'
   return 'site'
@@ -20,6 +22,7 @@ export function visitOrigin(a: Attribution): VisitOrigin {
 const LABEL: Record<VisitOrigin, string> = {
   google: 'pelo Google',
   meta: 'pelo Instagram/Facebook',
+  bio: 'pelo link do Instagram',
   site: 'pelo site',
 }
 
